@@ -2,7 +2,7 @@
   <section class="container-fluid">
     <div class="row justify-content-center mt-5">
       <div class="col-6 rounded bg-primary text-center">
-        <h3 @click="getGames"> Top Games</h3>
+        <h3> Top Games</h3>
       </div>
     </div>
     <div class="row justify-content-center mt-4 mx-3">
@@ -95,11 +95,10 @@ export default {
       }
     }
     onMounted(() => {
-      gamesService.getGameAuth()
+      getGames()
     })
     return {
       route,
-      getGames
     };
   }
 }
