@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid">
     <div class="row justify-content-center mt-5">
-      <div class="col-6 rounded bg-primary text-center">
+      <div class="col-6 rounded bg-light text-center elevation-3">
         <h3> Top Games</h3>
       </div>
     </div>
@@ -39,7 +39,7 @@
     </div>
 
     <section class="row justify-content-center mt-5">
-      <div class="col-6 rounded bg-primary text-center">
+      <div class="col-6 rounded bg-light text-center elevation-3">
         <h3>Filter By Genre</h3>
       </div>
     </section>
