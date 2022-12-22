@@ -23,7 +23,7 @@ class GamesService {
         logger.log("Passing the ID ", id)
         const res = await rawgAPI.get(`games/${id}`)
         logger.log('getting Game by id', res.data)
-        AppState.activeGame = res.data.results
+        AppState.activeGame = new Game(res.data)
     }
 
     async getAllGenres() {

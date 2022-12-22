@@ -3,6 +3,7 @@
 export class Game {
     constructor(data) {
         this.bgImg = data.background_image
+        this.bgImgAdditional = data.background_image_additional
         this.genre = data.genres[0].name
         this.ratings = data.ratings.reviews_count
         this.name = data.name
