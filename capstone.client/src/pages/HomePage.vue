@@ -47,12 +47,12 @@
 
     <section class="row p-3 mx-2 my-4 justify-content-center bg-white rounded">
       <div class="col-12 bg-dark elevation-5 p-2 rounded d-flex justify-content-between">
-        <button @click="filterBy = 'concert'" class="col-1  btn btn-primary fw-bold">FPS</button>
-        <button @click="filterBy = 'convention'" class="col-1  btn btn-primary fw-bold">MMO</button>
-        <button @click="filterBy = 'sport'" class="col-1  btn btn-primary fw-bold">RPG</button>
-        <button @click="filterBy = 'digital'" class="col-1  btn btn-primary fw-bold">HORROR</button>
-        <button @click="filterBy = 'digital'" class="col-1  btn btn-primary fw-bold">FIGHTING</button>
-        <button @click="filterBy = ''" class="col-1  btn btn-primary fw-bold">ALL</button>
+        <button @click="getGames()" class="col-1  btn btn-primary fw-bold">All</button>
+        <button @click="getGamesByGenres('shooter')" class="col-1  btn btn-primary fw-bold">FPS</button>
+        <button @click="getGamesByGenres('strategy')" class="col-1  btn btn-primary fw-bold">Strategy</button>
+        <button @click="getGamesByGenres('role-playing-games-rpg')" class="col-1  btn btn-primary fw-bold">RPG</button>
+        <button @click="getGamesByGenres('sports')" class="col-1  btn btn-primary fw-bold">Sports</button>
+        <button @click="getGamesByGenres('fighting')" class="col-1  btn btn-primary fw-bold">Fighting</button>
       </div>
     </section>
 
@@ -66,7 +66,7 @@
 
 <script>
 import { useRoute } from 'vue-router';
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import Pop from '../utils/Pop';
 import { gamesService } from '../services/GamesService.js'
 import { AppState } from '../AppState';
@@ -75,6 +75,8 @@ import GameCard from '../components/GameCard.vue';
 
 export default {
   setup() {
+    const filterResults = ref("");
+
     const route = useRoute();
     async function getGames() {
       try {
@@ -85,10 +87,31 @@ export default {
         Pop.error(("[ERROR]"), error.message);
       }
     }
+    async function getGamesByGenres(query) {
+      try {
+        await gamesService.getGamesByGenres(query);
+      }
+      catch (error) {
+        console.error(error);
+        Pop.error(("[ERROR]"), error.message);
+      }
+    }
+    async function getAllGenres() {
+      try {
+        await gamesService.getAllGenres()
+      } catch (error) {
+        console.error(error)
+        Pop.error(error.message)
+      }
+    }
     onMounted(() => {
       getGames();
+      getAllGenres();
+
     });
     return {
+      getGamesByGenres,
+      getGames,
       games: computed(() => AppState.games),
       route,
 

@@ -3,7 +3,7 @@
 export class Game {
     constructor(data) {
         this.bgImg = data.background_image
-        this.genre = data.genres.name
+        this.genre = data.genres[0].name
         this.ratings = data.ratings.reviews_count
         this.name = data.name
         this.id = data.id
@@ -11,6 +11,9 @@ export class Game {
         this.screenshots = data.short_screenshots
         this.stores = data.stores
         this.addedStatus = data.added_by_status
+        this.saturated_color = data.saturated_color
+
+
 
 
 
