@@ -56,23 +56,8 @@
     </section>
 
     <section class="row justify-content-center">
-      <div class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-white" @click="">
-        <!-- FIXME add params to router link -->
-        <router-link v-if="route.name == 'Home'" :to="{ name: 'Game Details' }">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
-            alt="" class="img-fluid"></router-link>
-      </div>
-      <div class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-white" @click="">
-        <router-link v-if="route.name == 'Home'" :to="{ name: 'Game Details' }"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
-            alt="" class="img-fluid"></router-link>
-      </div>
-      <div class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-white" @click=""><router-link
-          v-if="route.name == 'Home'" :to="{ name: 'Game Details' }"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
-            alt="" class="img-fluid">
-        </router-link>
+      <div v-for="g in games" class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-white" @click="">
+        <GameCard :game="g" />
       </div>
     </section>
   </section>
@@ -80,27 +65,33 @@
 
 <script>
 import { useRoute } from 'vue-router';
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import Pop from '../utils/Pop';
 import { gamesService } from '../services/GamesService.js'
+import { AppState } from '../AppState';
+import GameCard from '../components/GameCard.vue';
+
 export default {
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     async function getGames() {
       try {
-        await gamesService.getGames()
-      } catch (error) {
-        console.error(error)
-        Pop.error(('[ERROR]'), error.message)
+        await gamesService.getGames();
+      }
+      catch (error) {
+        console.error(error);
+        Pop.error(("[ERROR]"), error.message);
       }
     }
     onMounted(() => {
-      getGames()
-    })
+      getGames();
+    });
     return {
+      games: computed(() => AppState.games),
       route,
     };
-  }
+  },
+  components: { GameCard }
 }
 </script>
 
