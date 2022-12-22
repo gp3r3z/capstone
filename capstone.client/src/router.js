@@ -23,8 +23,8 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/game',
-    name: 'Game Details',
+    path: '/game/:id',
+    name: 'GameDetails',
     component: loadPage('GameDetailsPage')
   }
 

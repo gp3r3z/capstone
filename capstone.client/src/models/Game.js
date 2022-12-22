@@ -6,6 +6,7 @@ export class Game {
         this.genre = data.genres.name
         this.ratings = data.ratings.reviews_count
         this.name = data.name
+        this.id = data.id
 
 
 

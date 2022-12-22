@@ -3,6 +3,7 @@
     <div class="row justify-content-center mt-5">
       <div class="col-6 rounded bg-light text-center elevation-3">
         <h3> Top Games</h3>
+
       </div>
     </div>
     <div class="row justify-content-center mt-4 mx-3">
@@ -71,6 +72,7 @@ import { gamesService } from '../services/GamesService.js'
 import { AppState } from '../AppState';
 import GameCard from '../components/GameCard.vue';
 
+
 export default {
   setup() {
     const route = useRoute();
@@ -89,9 +91,13 @@ export default {
     return {
       games: computed(() => AppState.games),
       route,
+
     };
   },
-  components: { GameCard }
+  components: {
+    GameCard,
+
+  }
 }
 </script>
 

@@ -16,6 +16,7 @@
     "socket.io-client": "4.5.2",
     "sweetalert2": "^11.4.8",
     "vue": "3.2.39",
+    "vue-carousel-3d": "^1.0.1",
     "vue-router": "4.1.5"
   },
   "devDependencies": {
