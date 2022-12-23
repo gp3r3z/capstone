@@ -3,22 +3,7 @@
     <div class="row justify-content-center mt-5">
       <div class="col-6 rounded bg-light text-center elevation-3">
         <h3> Top Games</h3>
-        <carousel-3d>
-          <slide :index="0">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
-              class="d-block carousel-img" alt="...">
-          </slide>
-          <slide :index="1">
-            <img
-              src="https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-1520x800.png"
-              class="d-block carousel-img" alt="...">
-          </slide>
-          <slide :index="2">
-            <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="d-block carousel-img"
-              alt="...">
-          </slide>
-        </carousel-3d>
+
       </div>
     </div>
     <div class="row justify-content-center mt-4 mx-3">
@@ -86,7 +71,6 @@ import Pop from '../utils/Pop';
 import { gamesService } from '../services/GamesService.js'
 import { AppState } from '../AppState';
 import GameCard from '../components/GameCard.vue';
-import { Carousel3d, Slide } from 'vue-carousel-3d';
 
 
 export default {
@@ -135,8 +119,7 @@ export default {
   },
   components: {
     GameCard,
-    Carousel3d,
-    Slide
+
 
   }
 }
