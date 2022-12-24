@@ -26,7 +26,6 @@ export class GroupsController extends BaseController {
         }
     }
 
-    // NOTE Need to test if this works after post 
     async getGroupsByGameId(req, res, next) {
         try {
             const groups = await gamesService.getGroupsByGameId(req.params.id)
@@ -43,7 +42,7 @@ export class GroupsController extends BaseController {
             req.body.gameId = req.params.id
 
             logger.log("Body updated with needed params ", req.body)
-            const groups = await groupsService.createGroupForGame(req.body)
+            const groups = await gamesService.createGroupForGame(req.body)
             return res.send(groups)
 
         } catch (error) {

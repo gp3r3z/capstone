@@ -8,6 +8,12 @@ class GamesService {
         let groups = await dbContext.Group.find({ gameId })
         return groups
     }
+    async createGroupForGame(body) {
+        logger.log('[Server: Creating Groups for Game]', body)
+
+        const groups = await dbContext.Group.create(body)
+        return groups
+    }
 }
 
 

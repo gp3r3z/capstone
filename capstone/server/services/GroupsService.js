@@ -7,12 +7,7 @@ class GroupsService {
         const groups = await dbContext.Group.find()
         return groups
     }
-    async createGroupForGame(body) {
-        logger.log('[Server: Creating Groups for Game]', body)
 
-        const groups = await dbContext.Group.create(body)
-        return groups
-    }
 }
 
 export const groupsService = new GroupsService()
