@@ -1,0 +1,14 @@
+import { dbContext } from "../db/DbContext.js"
+import { logger } from "../utils/Logger.js"
+
+
+class GamesService {
+    async getGroupsByGameId(gameId) {
+        logger.log('Server retrieved GameID: ', gameId)
+        let groups = await dbContext.Group.find({ gameId })
+        return groups
+    }
+}
+
+
+export const gamesService = new GamesService()

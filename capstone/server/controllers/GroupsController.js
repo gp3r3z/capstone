@@ -1,5 +1,8 @@
+import { gamesService } from "../services/GamesService.js"
 import { groupsService } from "../services/GroupsService.js"
 import BaseController from "../utils/BaseController.js"
+import { Auth0Provider } from '@bcwdev/auth0provider'
+import { logger } from "../utils/Logger.js"
 
 
 export class GroupsController extends BaseController {
@@ -7,6 +10,10 @@ export class GroupsController extends BaseController {
         super('api/groups')
         this.router
             .get('', this.getGroups)
+            .get('/:id/game', this.getGroupsByGameId)
+            .use(Auth0Provider.getAuthorizedUserInfo)
+            .post('/:id/game', this.createGroupForGame)
+
     }
 
     async getGroups(req, res, next) {
@@ -18,4 +25,31 @@ export class GroupsController extends BaseController {
             next(error)
         }
     }
+
+    // NOTE Need to test if this works after post 
+    async getGroupsByGameId(req, res, next) {
+        try {
+            const groups = await gamesService.getGroupsByGameId(req.params.id)
+            return res.send(groups)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+    async createGroupForGame(req, res, next) {
+        try {
+            logger.log("Attempting to create group for game at ID: ", req.params.id)
+            req.body.creatorId = req.userInfo.id
+            req.body.gameId = req.params.id
+
+            logger.log("Body updated with needed params ", req.body)
+            const groups = await groupsService.createGroupForGame(req.body)
+            return res.send(groups)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
 }
