@@ -5,6 +5,7 @@
                 <img class="img-fluid" :src="group.coverImg" />
             </div>
             <div class="col-6">
+                <h2>{{ group.groupName }}</h2>
                 <p>{{ group.description }}</p>
                 <p>Capacity: {{ group.capacity }}</p>
                 <p>SkillLevel: {{ group.skillLevel }}</p>
