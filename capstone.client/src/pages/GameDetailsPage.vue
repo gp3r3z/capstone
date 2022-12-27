@@ -31,18 +31,8 @@
             </div>
             <div class="row mt-3 justify-content-center">
                 <!-- SECTION GROUPS FOR GAME -->
-                <div class="col-8">
-                    <div class="row bg-danger p-3 rounded elevation-5">
-                        <div class="col-3">
-                            <img class="img-fluid" src="https://thiscatdoesnotexist.com" />
-                        </div>
-                        <div class="col-6">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quis commodi accusamus
-                                vero,
-                                repellat aspernatur ut possimus quae? Soluta sapiente laboriosam ullam ducimus unde
-                                consectetur nemo veniam sunt dignissimos eos.</p>
-                        </div>
-                    </div>
+                <div v-for="g in groups" class="col-8">
+                    <GroupRowCard :group="g" />
                 </div>
             </div>
 
@@ -79,11 +69,22 @@ export default {
                 logger.log(error);
             }
         }
+        async function getGroupsbyGameId() {
+            try {
+                await gamesService.getGroupsbyGameId(route.params.id);
+            }
+            catch (error) {
+                Pop.error(error);
+                logger.log(error);
+            }
+        }
         onMounted(() => {
             getGameById()
+            getGroupsbyGameId()
         })
         return {
-            activeGame: computed(() => AppState.activeGame)
+            activeGame: computed(() => AppState.activeGame),
+            groups: computed(() => AppState.groups)
 
 
         }

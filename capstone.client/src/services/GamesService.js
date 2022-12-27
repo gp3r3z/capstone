@@ -1,7 +1,7 @@
 import { AppState } from "../AppState"
 import { Game } from "../models/Game"
 import { logger } from "../utils/Logger.js"
-import { rawgAPI } from "./AxiosService.js"
+import { api, rawgAPI } from "./AxiosService.js"
 
 
 class GamesService {
@@ -33,7 +33,7 @@ class GamesService {
 
         const res = await rawgAPI.get(`games/${body.slug}/screenshots`)
 
-        logger.log('[screenshotsReceived]', res.data.results)
+        // logger.log('[screenshotsReceived]', res.data.results)
 
         AppState.activeGame.screenshots = res.data.results
 
@@ -42,6 +42,14 @@ class GamesService {
     async getAllGenres() {
         const res = await rawgAPI.get('genres')
         logger.log('all genres', res.data)
+    }
+
+    async getGroupsbyGameId(gameId) {
+        const res = await api.get(`api/groups/${gameId}/game`)
+
+        logger.log('[Getting groups by GAMEID ]', gameId, ' \n ResponseData', res.data)
+
+        AppState.groups = res.data
     }
 
 
