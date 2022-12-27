@@ -13,6 +13,13 @@ export class Game {
         this.stores = data.stores
         this.addedStatus = data.added_by_status
         this.saturated_color = data.saturated_color
+        this.description_R = data.description_raw
+        this.website = data.website
+        this.released = data.released
+        this.achievements_count = data.achievements_count
+        this.developers = data.developers
+
+
 
 
 
