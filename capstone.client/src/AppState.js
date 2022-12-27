@@ -10,5 +10,6 @@ export const AppState = reactive({
 
   activeGame: [],
 
-  groups: []
+  groups: [],
+  activeGroup: []
 })

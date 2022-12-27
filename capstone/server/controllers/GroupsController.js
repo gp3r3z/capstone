@@ -10,6 +10,7 @@ export class GroupsController extends BaseController {
         super('api/groups')
         this.router
             .get('', this.getGroups)
+            .get('/:id', this.getGroupById)
             .get('/:id/game', this.getGroupsByGameId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:id/game', this.createGroupForGame)
@@ -19,6 +20,15 @@ export class GroupsController extends BaseController {
     async getGroups(req, res, next) {
         try {
             const groups = await groupsService.getGroups()
+            return res.send(groups)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+    async getGroupById(req, res, next) {
+        try {
+            const groups = await groupsService.getGroupById(req.params.id)
             return res.send(groups)
 
         } catch (error) {

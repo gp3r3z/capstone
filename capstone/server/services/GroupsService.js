@@ -7,6 +7,11 @@ class GroupsService {
         const groups = await dbContext.Group.find()
         return groups
     }
+    async getGroupById(id) {
+        logger.log('[Server: Getting GroupBYID]', id)
+        const groups = await dbContext.Group.findById({ '_id': id })
+        return groups
+    }
 
 }
 

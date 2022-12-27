@@ -26,6 +26,11 @@ const routes = [
     path: '/game/:id',
     name: 'GameDetails',
     component: loadPage('GameDetailsPage')
+  },
+  {
+    path: '/group/:id',
+    name: 'GroupDetails',
+    component: loadPage('GroupDetailsPage')
   }
 
 ]
