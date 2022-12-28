@@ -13,7 +13,7 @@ export class GroupsController extends BaseController {
             .get('/:id', this.getGroupById)
             .get('/:id/game', this.getGroupsByGameId)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('/:id/game', this.createGroupForGame)
+            .post('/:id', this.createGroupForGame)
 
     }
 
