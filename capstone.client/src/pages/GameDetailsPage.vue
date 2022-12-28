@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid bg-img" :style="`background-image: url(${activeGame.bgImgAdditional})`">
         <!-- SECTION Game Details   -->
-        <section class="row justify-content-around">
+        <section class="row justify-content-around align-items-center">
             <div class="col-5 ">
                 <img class="game-img mt-3 rounded elevation-5" :src="activeGame.bgImg" />
             </div>
@@ -39,7 +39,7 @@
 
         </section>
         <section class="row">
-            <a href="#" class="float">
+            <a href="#" class="float bg-dark">
                 <i class="mdi mdi-plus fs-1"></i>
             </a>
         </section>
@@ -94,8 +94,8 @@ export default {
 
 <style>
 .game-img {
-    height: 40vh;
-    width: 50vh;
+    height: 50vh;
+    width: 65vh;
 }
 
 .bg-img {
@@ -108,6 +108,7 @@ export default {
 
 .gamecard-style {
     background-color: rgba(255, 255, 255, 0.432);
+    backdrop-filter: blur(10px);
 }
 
 * {
@@ -124,10 +125,10 @@ export default {
     bottom: 40px;
     right: 40px;
     background-color: #0C9;
-    color: #FFF;
+    color: #AECBCF;
     border-radius: 50px;
     text-align: center;
-    box-shadow: 2px 2px 3px #999;
+    box-shadow: 2px 2px 3px #AECBCF;
 }
 
 .my-float {
