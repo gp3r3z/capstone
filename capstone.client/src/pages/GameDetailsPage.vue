@@ -39,9 +39,10 @@
 
         </section>
         <section class="row">
-            <a href="#" class="float bg-dark">
+            <button href="#" class="float btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="mdi mdi-plus fs-1"></i>
-            </a>
+            </button>
         </section>
 
     </div>

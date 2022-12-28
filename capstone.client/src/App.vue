@@ -5,14 +5,18 @@
   <main class="main-color">
     <router-view />
   </main>
-  <footer class="">
-
+  <footer>
   </footer>
+  <CreateGroup>
+    <GroupForm />
+  </CreateGroup>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import CreateGroup from "./components/CreateGroup.vue"
+import GroupForm from "./components/GroupForm.vue"
 import Navbar from './components/Navbar.vue'
 
 export default {
@@ -21,7 +25,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, CreateGroup, GroupForm }
 }
 </script>
 <style lang="scss">
