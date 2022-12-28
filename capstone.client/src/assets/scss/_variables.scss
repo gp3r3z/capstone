@@ -1,18 +1,16 @@
 $themes: (
-  default: (
-    "body-bg": #e5e5e5,
+  default: ("body-bg": #e5e5e5,
     "primary": #2B3754,
     "secondary": #8392ab,
     "success": #00f867,
     "info": #5d0149,
     "warning": #fbcf33,
     "danger": #ea0606,
-    "light": #629FCB,
-    "dark": #111927,
+    "light": #629fcba1,
+    "dark": #2b3754dc,
     "grey": #cbcbcb,
   ),
-  dark: (
-    "body-bg": #090f18,
+  dark: ("body-bg": #090f18,
     "primary": #89e5b0,
     "secondary": #fff9a4,
     "success": #00f867,

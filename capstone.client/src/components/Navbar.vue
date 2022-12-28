@@ -1,8 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg  bg-primary px-3 elevation-3">
+  <nav class="navbar navbar-expand-lg dark px-3 elevation-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <h1 class="text-white">OG</h1>
+        <img class="logo p-2"
+          src="http://cdn.shopify.com/s/files/1/0602/4259/1939/files/GamersOnlyLogo_social.png?v=1632051021" alt="">
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -12,9 +13,6 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -36,6 +34,15 @@ export default {
 <style scoped>
 a:hover {
   text-decoration: none;
+}
+
+.dark {
+  background-color: #2a2d3a67;
+}
+
+.logo {
+  height: 20vh;
+  width: 100%;
 }
 
 .nav-link {

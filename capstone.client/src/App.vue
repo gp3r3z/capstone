@@ -1,8 +1,8 @@
 <template>
-  <header>
+  <header class="navbar-dark sticky-top">
     <Navbar />
   </header>
-  <main>
+  <main class="main-color">
     <router-view />
   </main>
   <footer class="">
@@ -31,6 +31,14 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+.main-color {
+  background-color: #f2f2e7;
+}
+
+.navbar-dark {
+  background-color: #2b3754c7;
+  backdrop-filter: blur(5px)
+}
 
 // footer {
 //   display: grid;
