@@ -14,6 +14,7 @@ export class GroupsController extends BaseController {
             .get('/:id/game', this.getGroupsByGameId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:id', this.createGroupForGame)
+            .delete('/:id', this.removeGroup)
 
     }
 
@@ -59,6 +60,16 @@ export class GroupsController extends BaseController {
             next(error)
         }
     }
+    async removeGroup(req, res, next) {
+        try {
+            const groups = await groupsService.removeGroup(req.params.id)
+            return res.send(groups)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
 
 
 }
