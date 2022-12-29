@@ -4,7 +4,7 @@ import { logger } from "../utils/Logger.js"
 
 class GamesService {
     async getGroupsByGameId(gameId) {
-        logger.log('Server retrieved GameID: ', gameId)
+        logger.log('Server gettingGroupsBy GameID: ', gameId)
         let groups = await dbContext.Group.find({ gameId })
         return groups
     }
