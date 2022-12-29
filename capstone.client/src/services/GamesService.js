@@ -44,7 +44,7 @@ class GamesService {
         logger.log('all genres', res.data)
     }
 
-    async getGroupsbyGameId(gameId) {
+    async getGroupsByGameId(gameId) {
         const res = await api.get(`api/groups/${gameId}/game`)
 
         logger.log('[Getting groups by GAMEID ]', gameId, ' \n ResponseData', res.data)

@@ -70,9 +70,9 @@ export default {
                 logger.log(error);
             }
         }
-        async function getGroupsbyGameId() {
+        async function getGroupsByGameId() {
             try {
-                await gamesService.getGroupsbyGameId(route.params.id);
+                await gamesService.getGroupsByGameId(route.params.id);
             }
             catch (error) {
                 Pop.error(error);
@@ -81,7 +81,7 @@ export default {
         }
         onMounted(() => {
             getGameById()
-            getGroupsbyGameId()
+            getGroupsByGameId()
         })
         return {
             activeGame: computed(() => AppState.activeGame),
