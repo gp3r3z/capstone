@@ -1,9 +1,26 @@
 <template>
-    <div class="component">
-        <h1>{{ activeGroup.groupName }}</h1>
-        <p>{{ activeGroup.description }}</p>
+    <!-- SECTION HERO IMG -->
+    <section class="row justify-content-center ">
+        <div class="col-9 hero-img rounded mt-3" :style="`background-image: url(${activeGroup.coverImg})`">
 
-    </div>
+        </div>
+    </section>
+
+    <!-- SECTION group info -->
+    <section class="row justify-content-around mt-3">
+        <div class="col-6 bg-dark p-3 rounded">
+            <h2>Group: {{ activeGroup.groupName }}</h2>
+            <p>Description: {{ activeGroup.description }}</p>
+            <p>Capacity: {{ activeGroup.capacity }}</p>
+            <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
+        </div>
+        <div class="col-5 p-3  rounded">
+            <button class="btn btn-primary">Join</button>
+            <button class="btn btn-danger ms-3">Leave</button>
+        </div>
+    </section>
+
+    
 </template>
 
 
@@ -42,5 +59,10 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.hero-img {
+    height: 55vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 </style>
