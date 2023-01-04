@@ -9,6 +9,7 @@ export const EventSchema = new Schema({
     coverImg: { type: String, required: true },
     capacity: { type: Number, default: 3 },
     startTime: { type: Date, required: true, default: () => new Date(+new Date() + 7 * 24 * 60 * 60 * 1000) },
+    // TODO add array of objects for those attending 
     isCanceled: { type: Boolean, required: true, default: false },
 
 
