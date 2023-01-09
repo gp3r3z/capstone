@@ -8,7 +8,6 @@ class GroupsService {
         logger.log('Getting group by Id ', id, '\n Response ', res.data)
 
         AppState.activeGroup = res.data
-        logger.log(AppState.groupMembers, 'group members')
     }
 
     async getGroupMembersByGroupId(groupId) {
