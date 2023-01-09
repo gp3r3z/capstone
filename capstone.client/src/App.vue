@@ -2,7 +2,8 @@
   <header class="navbar-dark sticky-top">
     <Navbar />
   </header>
-  <main class="main-color">
+  <main class="bg-img"
+    :style="`background-image: url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80)`">
     <router-view />
   </main>
   <footer>
@@ -18,6 +19,7 @@ import { AppState } from './AppState'
 import CreateGroup from "./components/CreateGroup.vue"
 import GroupForm from "./components/GroupForm.vue"
 import Navbar from './components/Navbar.vue'
+
 
 export default {
   setup() {
@@ -35,8 +37,14 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+.bg-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .main-color {
-  background-color: #f2f2e7;
+  background-color: #050505;
 }
 
 .navbar-dark {
