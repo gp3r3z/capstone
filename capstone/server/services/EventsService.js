@@ -15,8 +15,8 @@ class EventsService {
         return event
     }
     async removeEvent(eventId) {
-        logger.log('[Server: removing Event for Group]', eventId)
-        const event = dbContext.Event.remove({ eventId })
+        logger.log('[Server: Removing Event for Group]', eventId)
+        const event = dbContext.Event.remove({ _id: eventId })
         return event
     }
 }
