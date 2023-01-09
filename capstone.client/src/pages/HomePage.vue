@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid">
+  <section class="container-fluid bg-img">
     <div class="row justify-content-center mt-5">
       <div class="col-5 rounded bg-light text-center elevation-3">
         <h3 class="p-1">Top Games</h3>
