@@ -57,6 +57,7 @@ import { AppState } from '../AppState.js';
 import { onMounted, computed } from 'vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
+import { groupsService } from '../services/GroupsService.js';
 
 export default {
     setup() {
@@ -85,9 +86,8 @@ export default {
         })
         return {
             activeGame: computed(() => AppState.activeGame),
-            groups: computed(() => AppState.groups)
-
-
+            groups: computed(() => AppState.groups),
+           
         }
     }
 }

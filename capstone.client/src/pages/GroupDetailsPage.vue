@@ -15,12 +15,17 @@
             <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
         </div>
         <div class="col-5 p-3  rounded">
-            <button class="btn btn-primary">Join</button>
-            <button class="btn btn-danger ms-3">Leave</button>
+            <div v-if="!foundMe">
+                <button @click="joinGroup" class="btn btn-primary">Join</button>
+            </div>
+            <div v-else>
+                <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave</button>
+            </div>
+
         </div>
     </section>
 
-    
+
 </template>
 
 
@@ -38,6 +43,7 @@ export default {
         const route = useRoute();
         async function getGroupById() {
             try {
+
                 await groupsService.getGroupById(route.params.id);
             }
             catch (error) {
@@ -50,7 +56,35 @@ export default {
 
         })
         return {
-            activeGroup: computed(() => AppState.activeGroup)
+            activeGroup: computed(() => AppState.activeGroup),
+            foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
+
+            async joinGroup() {
+                try {
+                    logger.log('Attempting to join group')
+
+                    await groupsService.joinGroup(route.params.id)
+                }
+                catch (error) {
+                    Pop.error(error);
+                    logger.log(error);
+                }
+
+            },
+            async leaveGroup(groupMemberId) {
+                try {
+                    logger.log('Attempting to leave group', groupMemberId)
+
+                    await groupsService.leaveGroup(groupMemberId)
+                }
+                catch (error) {
+                    Pop.error(error);
+                    logger.log(error);
+                }
+
+            }
+
+
 
         }
     }

@@ -22,7 +22,7 @@ class GroupsService {
         logger.log('[Server: Joining GroupById] ', body)
         const group = await dbContext.Group.findById(body.groupId)
 
-        logger.log('[Found Group')
+        logger.log('[Found Group]')
 
         // @ts-ignore
         if (group.capacity <= 0) throw new BadRequest('max capacity reached')
@@ -56,6 +56,12 @@ class GroupsService {
         return 'Left group'
 
 
+    }
+    async getGroupMembers() {
+        const getGroupMembers = await dbContext.GroupMember.find()
+
+        logger.log(getGroupMembers)
+        return getGroupMembers
     }
 
 }

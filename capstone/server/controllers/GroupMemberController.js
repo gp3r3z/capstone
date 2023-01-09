@@ -12,6 +12,7 @@ export class GroupMemberController extends BaseController {
         super('api/groupmember')
         this.router
             .use(Auth0Provider.getAuthorizedUserInfo)
+            .get('', this.getGroupMembers)
             .post('', this.joinGroup)
             .delete('/:id', this.leaveGroup)
     }
@@ -29,6 +30,16 @@ export class GroupMemberController extends BaseController {
         try {
 
             const message = await groupsService.leaveGroup(req.params.id, req.userInfo.id)
+            return res.send(message)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+    async getGroupMembers(req, res, next) {
+        try {
+
+            const message = await groupsService.getGroupMembers()
             return res.send(message)
 
         } catch (error) {
