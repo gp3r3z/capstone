@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js"
 
 class GroupsService {
@@ -36,6 +37,25 @@ class GroupsService {
         // @ts-ignore
         await group.save()
         return groupmember
+    }
+    async leaveGroup(groupMemberId, userId) {
+        const groupMember = await dbContext.GroupMember.findById(groupMemberId).populate('profile')
+
+        if (!groupMember) throw new BadRequest(`No groupmember at id ${groupMemberId}`)
+        // @ts-ignore
+        if (groupMember.accountId.toString() != userId) throw new Forbidden("No group member at accountId")
+
+        await groupMember.remove()
+
+        const group = await this.getGroupById(groupMember.groupId)
+
+        // @ts-ignore
+        group.capacity += 1
+        // @ts-ignore
+        await group.save()
+        return 'Left group'
+
+
     }
 
 }
