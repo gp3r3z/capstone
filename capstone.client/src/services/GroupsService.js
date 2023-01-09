@@ -8,12 +8,18 @@ class GroupsService {
         logger.log('Getting group by Id ', id, '\n Response ', res.data)
 
         AppState.activeGroup = res.data
+        logger.log(AppState.groupMembers, 'group members')
+    }
 
+    async getGroupMembersByGroupId(groupId) {
+        const res = await api.get(`api/groups/${groupId}/groupmember`)
+        logger.log('getting group members by group id', res.data)
+        AppState.groupMembers = res.data
     }
     async joinGroup(body) {
         logger.log('Join group by groupId ', body)
         const res = await api.post(`api/groupmember/`, { groupId: body })
-
+        // logger.log(res.data, 'res data')
         AppState.groupMembers.push(res.data)
         AppState.activeGroup.capacity--
 

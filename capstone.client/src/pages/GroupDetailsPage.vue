@@ -15,11 +15,14 @@
             <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
         </div>
         <div class="col-5 p-3  rounded">
-            <div v-if="!foundMe">
+            <div v-if="account.id && !foundMe && activeGroup.capacity > 0">
                 <button @click="joinGroup" class="btn btn-primary">Join</button>
             </div>
-            <div v-else>
+            <div v-else-if="foundMe">
                 <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave</button>
+            </div>
+            <div v-else-if="!foundMe && activeGroup.capacity == 0">
+                <button class="btn btn-danger ms-3" disabled>Group is full</button>
             </div>
 
         </div>
@@ -31,7 +34,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive, onMounted, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -51,19 +54,30 @@ export default {
                 logger.log(error);
             }
         }
-        onMounted(() => {
+        async function getGroupMembersByGroupId() {
+            try {
+                await groupsService.getGroupMembersByGroupId(route.params.id)
+            } catch (error) {
+                Pop.error(('[ERROR]'), error.message)
+                logger.log(error)
+            }
+        }
+        watchEffect(() => {
             getGroupById()
+            getGroupMembersByGroupId()
+
 
         })
         return {
             activeGroup: computed(() => AppState.activeGroup),
             foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
+            account: computed(() => AppState.account),
 
             async joinGroup() {
                 try {
                     logger.log('Attempting to join group')
-
                     await groupsService.joinGroup(route.params.id)
+                    Pop.success('Joined Group!')
                 }
                 catch (error) {
                     Pop.error(error);
@@ -74,8 +88,9 @@ export default {
             async leaveGroup(groupMemberId) {
                 try {
                     logger.log('Attempting to leave group', groupMemberId)
-
-                    await groupsService.leaveGroup(groupMemberId)
+                    if (await Pop.confirm('Are you sure you want to leave this group?')) {
+                        await groupsService.leaveGroup(groupMemberId)
+                    }
                 }
                 catch (error) {
                     Pop.error(error);

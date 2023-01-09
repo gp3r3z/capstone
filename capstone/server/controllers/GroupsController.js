@@ -12,6 +12,7 @@ export class GroupsController extends BaseController {
             .get('', this.getGroups)
             .get('/:id', this.getGroupById)
             .get('/:gameId/game', this.getGroupsByGameId)
+            .get('/:groupId/groupmember', this.getGroupMembersByGroupId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:id', this.createGroupForGame)
             .delete('/:id', this.removeGroup)
@@ -32,6 +33,15 @@ export class GroupsController extends BaseController {
             const groups = await groupsService.getGroupById(req.params.id)
             return res.send(groups)
 
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getGroupMembersByGroupId(req, res, next) {
+        try {
+            const groupMembers = await groupsService.getGroupMembersByGroupId(req.params.groupId)
+            return res.send(groupMembers)
         } catch (error) {
             next(error)
         }

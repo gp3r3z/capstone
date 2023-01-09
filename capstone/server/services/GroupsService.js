@@ -3,6 +3,10 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js"
 
 class GroupsService {
+    async getGroupMembersByGroupId(groupId) {
+        const groupMembers = await dbContext.GroupMember.find({ groupId }).populate('profile')
+        return groupMembers
+    }
     async getGroups() {
         logger.log('[Server: Getting Groups] ')
         const groups = await dbContext.Group.find()
