@@ -38,7 +38,16 @@ class EventsService {
 
         await original.save()
         return original
-
+    }
+    async joinEvent(eventId, groupMemberId) {
+        const event = await dbContext.Event.findById(eventId)
+        // @ts-ignore
+        logger.log('Attempting to join ', event.title)
+        // @ts-ignore
+        event.eventGoers.push(groupMemberId)
+        // @ts-ignore
+        event.save()
+        return event
 
     }
 }
