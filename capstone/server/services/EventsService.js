@@ -14,6 +14,11 @@ class EventsService {
         const event = dbContext.Event.find({ groupId })
         return event
     }
+    async removeEvent(eventId) {
+        logger.log('[Server: Removing Event for Group]', eventId)
+        const event = dbContext.Event.remove({ _id: eventId })
+        return event
+    }
 }
 
 export const eventsService = new EventsService()

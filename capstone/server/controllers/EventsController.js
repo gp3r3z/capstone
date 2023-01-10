@@ -11,6 +11,7 @@ export class EventsController extends BaseController {
             .get('/:groupId', this.getEventsByGroupId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
+            .delete('/:eventId', this.removeEvent)
     }
 
     async createEvent(req, res, next) {
@@ -28,6 +29,14 @@ export class EventsController extends BaseController {
     async getEventsByGroupId(req, res, next) {
         try {
             const events = await eventsService.getEventsByGroupId(req.params.groupId)
+            return res.send(events)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async removeEvent(req, res, next) {
+        try {
+            const events = await eventsService.removeEvent(req.params.eventId)
             return res.send(events)
         } catch (error) {
             next(error)
