@@ -6,7 +6,6 @@ class GroupsService {
     async getGroupById(id) {
         const res = await api.get(`api/groups/${id}`)
         logger.log('Getting group by Id ', id, '\n Response ', res.data)
-
         AppState.activeGroup = res.data
     }
 
@@ -41,10 +40,11 @@ class GroupsService {
         AppState.events = res.data
     }
 
-    async createGroup(body) {
-        const res = await api.post('api/groups', body)
+    async createGroup(gameId, body) {
+        const res = await api.post(`api/groups/${gameId}`, body)
         logger.log('[create group]', res.data)
         AppState.groups.push(res.data)
+        AppState.activeGroup = res.data
         return res.data
     }
 

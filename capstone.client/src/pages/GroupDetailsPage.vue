@@ -76,7 +76,6 @@ export default {
         const route = useRoute();
         async function getGroupById() {
             try {
-
                 await groupsService.getGroupById(route.params.id);
             }
             catch (error) {
