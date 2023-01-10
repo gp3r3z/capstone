@@ -40,6 +40,13 @@ class GroupsService {
         logger.log('getting events by group id', res.data)
         AppState.events = res.data
     }
+
+    async createGroup(body) {
+        const res = await api.post('api/groups', body)
+        logger.log('[create group]', res.data)
+        AppState.groups.push(res.data)
+        return res.data
+    }
 }
 
 export const groupsService = new GroupsService()
