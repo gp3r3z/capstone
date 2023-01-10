@@ -2,8 +2,8 @@
     <!-- SECTION HERO IMG -->
     <section class="row justify-content-center ">
         <div class="col-9 hero-img rounded mt-3" :style="`background-image: url(${activeGroup.coverImg})`">
-
         </div>
+
     </section>
 
     <!-- SECTION group info -->
@@ -42,9 +42,9 @@
 
     <!-- SECTION Group Events Component -->
     <section class="row mt-5">
-        <!-- <div v-for="e in events"> -->
-        <GroupEvent />
-        <!-- </div> -->
+        <div v-for="e in events" class="d-flex">
+            <GroupEvent :event="e" />
+        </div>
     </section>
 
 
