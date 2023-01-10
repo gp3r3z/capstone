@@ -47,6 +47,14 @@ class GroupsService {
         AppState.groups.push(res.data)
         return res.data
     }
+
+    async editGroup(groupData, groupId) {
+        logger.log('this is the group data', groupData)
+        const res = await api.put(`api/groups/` + groupId, groupData)
+        logger.log('edited group', res.data)
+        AppState.activeGroup = res.data
+
+    }
 }
 
 export const groupsService = new GroupsService()
