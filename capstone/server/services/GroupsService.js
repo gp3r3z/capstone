@@ -3,6 +3,26 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js"
 
 class GroupsService {
+    async editGroup(groupId, groupData) {
+        const original = await dbContext.Group.findById(groupId)
+        if (!original) throw new BadRequest('no group at id:' + groupId)
+        // @ts-ignore
+        if (original.creatorId.toString() != groupData.creatorId) {
+            throw new Forbidden('not your group to edit')
+        }
+        original.description = groupData.description ? groupData.description : original.description
+        original.coverImg = groupData.coverImg ? groupData.coverImg : original.coverImg
+        original.capacity = groupData.capacity != undefined ? groupData.capacity : original.capacity
+        original.gameTitle = groupData.gameTitle ? groupData.gameTitle : original.gameTitle
+        original.genre = groupData.genre ? groupData.genre : original.genre
+        original.skillLevel = groupData.skillLevel ? groupData.skillLevel : original.skillLevel
+        original.comsRequired = groupData.comsRequired ? groupData.comsRequired : original.comsRequired
+        original.groupName = groupData.groupName ? groupData.groupName : original.groupName
+
+        await original.save()
+        return original
+    }
+
     async getGroupMembersByGroupId(groupId) {
         const groupMembers = await dbContext.GroupMember.find({ groupId }).populate('profile')
         return groupMembers

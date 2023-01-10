@@ -16,6 +16,7 @@ export class GroupsController extends BaseController {
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:id', this.createGroupForGame)
             .delete('/:id', this.removeGroup)
+            .put('/:groupId', this.editGroup)
 
     }
 
@@ -80,6 +81,15 @@ export class GroupsController extends BaseController {
         }
     }
 
+    async editGroup(req, res, next) {
+        try {
+            req.body.creatorId = req.userInfo.id
+            const updated = await groupsService.editGroup(req.params.groupId, req.body)
+            return res.send(updated)
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 
