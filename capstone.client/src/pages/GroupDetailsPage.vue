@@ -43,7 +43,7 @@
     <!-- SECTION Group Events Component -->
     <section class="row mt-5">
         <!-- <div v-for="e in events"> -->
-        <GroupEvent :event="e" />
+        <GroupEvent />
         <!-- </div> -->
     </section>
 

@@ -7,12 +7,13 @@
 <script>
 
 export default {
-    props: {
-        event: {
-            type: Object,
-            required: true
-        }
-    },
+    // TODO add this prop back once events can be created
+    // props: {
+    //     event: {
+    //         type: Object,
+    //         required: true
+    //     }
+    // },
 
 
     setup() {
