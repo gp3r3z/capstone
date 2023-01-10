@@ -11,6 +11,4 @@ export const EventSchema = new Schema({
     startTime: { type: Date, required: true, default: () => new Date(+new Date() + 7 * 24 * 60 * 60 * 1000) },
     // TODO add array of objects for those attending 
     isCanceled: { type: Boolean, required: true, default: false },
-
-
 })
