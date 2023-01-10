@@ -2,7 +2,10 @@
     <div class="container-fluid bg-img" :style="`background-image: url(${activeGame.bgImgAdditional})`">
         <!-- SECTION Game Details   -->
         <section class="row justify-content-around align-items-center">
-            <div class="col-5 ">
+            <div class="col-5">
+                <div class="row">
+                    <h2 class="p-2 gamecard-style text-center rounded">{{ activeGame.name }}</h2>
+                </div>
                 <img class="game-img mt-3 rounded elevation-5" :src="activeGame.bgImg" />
             </div>
             <div class="col-6  elevation-5 rounded  gamecard-style mt-3">
@@ -26,7 +29,7 @@
         <!-- SECTION GameGroups Details Row Header  -->
 
         <section class="row justify-content-center">
-            <div class="col-8 bg-light rounded elevation-5">
+            <div class="col-8 bg-light rounded elevation-5 mt-4">
                 <h2 class="text-center">Groups</h2>
             </div>
             <div class="row mt-3 justify-content-center">
@@ -40,8 +43,8 @@
         </section>
         <section class="row">
             <button href="#" class="float btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
-                data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="mdi mdi-plus fs-1"></i>
+                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Create Group">
+                <i class="mdi mdi-gamepad-variant fs-1"></i>
             </button>
         </section>
 
@@ -95,16 +98,15 @@ export default {
 
 <style>
 .game-img {
-    height: 50vh;
-    width: 65vh;
+    height: 55vh;
+    width: 87vh;
 }
 
 .bg-img {
-    height: 100vh;
-    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .gamecard-style {
