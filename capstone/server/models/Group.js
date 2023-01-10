@@ -11,7 +11,7 @@ export const GroupSchema = new Schema({
     capacity: { type: Number, default: 3 },
     gameTitle: { type: String },
     genre: { type: String },
-    skillLevel: { type: String, default: 'begginer', enum: ['begginer', 'medium', 'advance'], lowercase: true },
+    skillLevel: { type: String, default: 'begginer', enum: ['beginner', 'casual', 'competitive'], lowercase: true },
     comsRequired: { type: Boolean, default: false },
     groupName: { type: String, required: true }
 

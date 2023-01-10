@@ -38,8 +38,8 @@
                                 <select v-model="editable.skillLevel" class="form-select" id="floatingSelect"
                                     aria-label="Floating label select example">
                                     <option value="beginner">Beginner</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="advanced">Advanced</option>
+                                    <option value="casual">Casual</option>
+                                    <option value="competitive">Competitive</option>
                                 </select>
                                 <label for="floatingSelect">Level of Play</label>
                             </div>
