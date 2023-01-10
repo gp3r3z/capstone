@@ -25,19 +25,28 @@
                 <button class="btn btn-danger ms-3" disabled>Group is full</button>
             </div>
         </div>
-
-        <!-- SECTION group members -->
-        <section class="row mx-4 p-2 rounded">
-            <span class="d-flex justify-content-center align-items-center fst-italic fw-bold text-white fs-4">Group
-                Members:</span>
-            <div v-for="g in groupMembers">
-                <div>
-                    <img :src="g.profile.picture" alt="" :title="g.profile.name"
-                        class="group-member-picture rounded-circle">
-                </div>
-            </div>
-        </section>
     </section>
+    <!-- SECTION group members -->
+    <section class="row mx-4 p-2 rounded">
+        <span class="d-flex justify-content-center align-items-center fst-italic fw-bold text-white fs-4">Group
+            Members:</span>
+        <div v-for="g in groupMembers">
+            <div>
+                <img :src="g.profile.picture" alt="" :title="g.profile.name"
+                    class="group-member-picture rounded-circle">
+            </div>
+        </div>
+    </section>
+    <!-- SECTION Group Chat -->
+    <!-- TODO off canvas for group chat? -->
+
+    <!-- SECTION Group Events Component -->
+    <section class="row mt-5">
+        <!-- <div v-for="e in events"> -->
+        <GroupEvent :event="e" />
+        <!-- </div> -->
+    </section>
+
 
 
 </template>
@@ -50,6 +59,7 @@ import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { groupsService } from '../services/GroupsService.js'
+import GroupEvent from '../components/GroupEvent.vue'
 
 
 export default {
@@ -73,9 +83,19 @@ export default {
                 logger.log(error)
             }
         }
+        async function getEventsByGroupId() {
+            try {
+                await groupsService.getEventsByGroupId(route.params.id)
+            } catch (error) {
+                console.error(error)
+                Pop.error(('[ERROR]'), error.message)
+                logger.log(error)
+            }
+        }
         watchEffect(() => {
             getGroupById()
             getGroupMembersByGroupId()
+            getEventsByGroupId()
 
 
         })
@@ -84,6 +104,8 @@ export default {
             foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
             account: computed(() => AppState.account),
             groupMembers: computed(() => AppState.groupMembers),
+            events: computed(() => AppState.events),
+
 
             async joinGroup() {
                 try {

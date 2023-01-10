@@ -34,6 +34,12 @@ class GroupsService {
         AppState.activeGroup.capacity++
 
     }
+
+    async getEventsByGroupId(groupId) {
+        const res = await api.get(`api/events/${groupId}`)
+        logger.log('getting events by group id', res.data)
+        AppState.events = res.data
+    }
 }
 
 export const groupsService = new GroupsService()
