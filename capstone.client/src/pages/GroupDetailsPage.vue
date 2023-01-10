@@ -65,16 +65,16 @@ import GroupEvent from '../components/GroupEvent.vue'
 export default {
     setup() {
         const route = useRoute();
-        async function getGroupById() {
-            try {
+        // async function getGroupById() {
+        //     try {
 
-                await groupsService.getGroupById(route.params.id);
-            }
-            catch (error) {
-                Pop.error(error);
-                logger.log(error);
-            }
-        }
+        //         await groupsService.getGroupById(route.params.id);
+        //     }
+        //     catch (error) {
+        //         Pop.error(error);
+        //         logger.log(error);
+        //     }
+        // }
         async function getGroupMembersByGroupId() {
             try {
                 await groupsService.getGroupMembersByGroupId(route.params.id)
@@ -93,7 +93,7 @@ export default {
             }
         }
         watchEffect(() => {
-            getGroupById()
+            // getGroupById()
             getGroupMembersByGroupId()
             getEventsByGroupId()
 
