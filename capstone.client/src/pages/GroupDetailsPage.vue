@@ -24,8 +24,19 @@
             <div v-else-if="!foundMe && activeGroup.capacity == 0">
                 <button class="btn btn-danger ms-3" disabled>Group is full</button>
             </div>
-
         </div>
+
+        <!-- SECTION group members -->
+        <section class="row mx-4 p-2 rounded">
+            <span class="d-flex justify-content-center align-items-center fst-italic fw-bold text-white fs-4">Group
+                Members:</span>
+            <div v-for="g in groupMembers">
+                <div>
+                    <img :src="g.profile.picture" alt="" :title="g.profile.name"
+                        class="group-member-picture rounded-circle">
+                </div>
+            </div>
+        </section>
     </section>
 
 
@@ -72,6 +83,7 @@ export default {
             activeGroup: computed(() => AppState.activeGroup),
             foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
             account: computed(() => AppState.account),
+            groupMembers: computed(() => AppState.groupMembers),
 
             async joinGroup() {
                 try {
@@ -113,5 +125,10 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.group-member-picture {
+    height: 10vh;
+    width: 10vh;
 }
 </style>
