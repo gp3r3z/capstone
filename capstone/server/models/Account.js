@@ -1,5 +1,5 @@
-import mongoose, { SchemaType } from 'mongoose'
-const Schema = mongoose.Schema
+
+import { Schema } from "mongoose";
 
 export const AccountSchema = new Schema(
   {
