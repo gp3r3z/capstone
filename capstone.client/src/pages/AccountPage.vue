@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <img class="background" :src="account.coverImg" />
     <div class="row">
       <div class="about text-center">
