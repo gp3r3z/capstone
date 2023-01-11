@@ -50,6 +50,11 @@ class EventsService {
         return event
 
     }
+    async getMyEventsByCreatorId(id) {
+        const myEvent = await dbContext.Event.find({ id })
+        logger.log('Attempting to getMyEventsByCreatorId', myEvent)
+        return myEvent
+    }
 }
 
 export const eventsService = new EventsService()
