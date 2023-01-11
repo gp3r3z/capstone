@@ -9,6 +9,10 @@ class CommentsService {
 
         return comment
     }
+    async getCommentsByGroupId(groupId) {
+        const comments = await dbContext.GroupComment.find({ groupId })
+        return comments
+    }
 
 }
 

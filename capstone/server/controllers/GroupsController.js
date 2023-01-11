@@ -3,6 +3,7 @@ import { groupsService } from "../services/GroupsService.js"
 import BaseController from "../utils/BaseController.js"
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { logger } from "../utils/Logger.js"
+import { commentsService } from "../services/CommentsService.js"
 
 
 export class GroupsController extends BaseController {
@@ -13,10 +14,12 @@ export class GroupsController extends BaseController {
             .get('/:id', this.getGroupById)
             .get('/:gameId/game', this.getGroupsByGameId)
             .get('/:groupId/groupmember', this.getGroupMembersByGroupId)
+            .get('/:groupId/comments', this.getCommentsByGroupId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:id', this.createGroupForGame)
             .delete('/:id', this.removeGroup)
             .put('/:groupId', this.editGroup)
+
 
     }
 
@@ -43,6 +46,15 @@ export class GroupsController extends BaseController {
         try {
             const groupMembers = await groupsService.getGroupMembersByGroupId(req.params.groupId)
             return res.send(groupMembers)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getCommentsByGroupId(req, res, next) {
+        try {
+            let comments = await commentsService.getCommentsByGroupId(req.params.groupId)
+            return res.send(comments)
         } catch (error) {
             next(error)
         }
