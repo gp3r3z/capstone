@@ -62,7 +62,9 @@ export default {
           const group = await groupsService.createGroup(route.params.id, editable.value)
           editable.value = {}
           Modal.getOrCreateInstance('#exampleModal').hide()
-          router.push({ name: 'GroupDetails', params: { groupId: group.id } })
+          logger.log('FE this is the created group', group)
+          router.push({ name: 'GroupDetails', params: { id: group._id } })
+          return group
         } catch (error) {
           logger.error(error)
           Pop.error(error.message)
