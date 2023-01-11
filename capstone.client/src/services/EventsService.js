@@ -17,7 +17,6 @@ class EventsService {
         const res = await api.put('api/events/' + eventId, eventData)
         logger.log('edited event', res.data)
         AppState.activeEvent = res.data
-
     }
 }
 

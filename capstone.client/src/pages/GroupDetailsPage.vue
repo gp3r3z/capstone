@@ -105,6 +105,7 @@ export default {
             getGroupById()
             getGroupMembersByGroupId()
             getEventsByGroupId()
+            AppState.activeEvent
         })
         return {
             activeGroup: computed(() => AppState.activeGroup),
@@ -112,6 +113,7 @@ export default {
             account: computed(() => AppState.account),
             groupMembers: computed(() => AppState.groupMembers),
             events: computed(() => AppState.events),
+
 
 
             async joinGroup() {
