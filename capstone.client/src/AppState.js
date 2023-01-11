@@ -14,6 +14,8 @@ export const AppState = reactive({
   activeGroup: [],
 
   groupMembers: [],
+  events: [],
 
-  events: []
+  myGroups: [],
+  myEvents: []
 })
