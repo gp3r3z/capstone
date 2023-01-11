@@ -23,6 +23,9 @@
     </section>
     <section class="row mt-3">
       <h3 class="border-bottom text-center">MyEvents</h3>
+      <div v-for="e in myEvents">
+        <GroupEvent :event="e" />
+      </div>
     </section>
   </div>
   <div class="cont">
@@ -47,14 +50,24 @@ export default {
         logger.log(error)
       }
     }
+    async function getMyEvents() {
+      try {
+        await accountService.getMyEvents()
+      } catch (error) {
+        Pop.error(error)
+        logger.log(error)
+      }
+    }
 
 
     onMounted(() => {
       getMyGroups()
+      getMyEvents()
     })
     return {
       account: computed(() => AppState.account),
-      myGroups: computed(() => AppState.myGroups)
+      myGroups: computed(() => AppState.myGroups),
+      myEvents: computed(() => AppState.myEvents)
     }
   }
 }
