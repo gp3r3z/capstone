@@ -11,6 +11,14 @@ class EventsService {
         logger.log('getting event by its id', res.data)
         AppState.activeEvent = res.data
     }
+
+    async editEvent(eventData, eventId) {
+        logger.log('Here is the  ', eventId)
+        const res = await api.put('api/events/' + eventId, eventData)
+        logger.log('edited event', res.data)
+        AppState.activeEvent = res.data
+
+    }
 }
 
 export const eventsService = new EventsService()

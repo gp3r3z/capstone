@@ -61,7 +61,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
+import { computed, reactive, onMounted, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -105,8 +105,6 @@ export default {
             getGroupById()
             getGroupMembersByGroupId()
             getEventsByGroupId()
-
-
         })
         return {
             activeGroup: computed(() => AppState.activeGroup),

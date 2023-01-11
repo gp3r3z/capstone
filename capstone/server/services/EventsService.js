@@ -6,7 +6,7 @@ import { logger } from "../utils/Logger.js"
 class EventsService {
     async getEventByEventId(eventId) {
         logger.log('[Server: Getting Event by id:', eventId)
-        const event = await dbContext.Event.find({ eventId })
+        const event = await dbContext.Event.find({ _id: eventId })
         return event
     }
 
@@ -37,7 +37,7 @@ class EventsService {
         original.title = eventData.title ? eventData.title : original.title
         original.coverImg = eventData.coverImg ? eventData.coverImg : original.coverImg
         original.capacity = eventData.capacity != undefined ? eventData.capacity : original.capacity
-        original.startTime = eventData.startTime ? eventData.gameTitle : original.startTime
+        original.startTime = eventData.startTime ? eventData.startTime : original.startTime
         original.isCanceled = eventData.isCanceled ? eventData.isCanceled : original.isCanceled
 
 
