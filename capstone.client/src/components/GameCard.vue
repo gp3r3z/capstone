@@ -1,8 +1,10 @@
 <template>
     <router-link :to="{ name: 'GameDetails', params: { id: game.id } }" :title="game.name">
-        <img :src="game.bgImg" alt="" class="card-img p-4">
-        <h3 class="text-center text-dark">{{ game.name }}</h3>
-        <h3 class="text-center text-dark"> Rating: {{ game.rating }} / 5</h3>
+        <div class="text-white gameCardStyle">
+            <img :src="game.bgImg" alt="" class="card-img p-4 img-fluid">
+            <h3 class="text-center ">{{ game.name }}</h3>
+            <h3 class="text-center "> Rating: {{ game.rating }} / 5</h3>
+        </div>
     </router-link>
 </template>
 
@@ -31,5 +33,10 @@ export default {
 .card-img {
     height: 25vh;
     width: 40vh;
+}
+
+.gameCardStyle {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 </style>

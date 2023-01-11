@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ name: 'GroupDetails', params: { id: group.id } }" class="selectable">
-        <div class="row bg-danger p-3 rounded elevation-5 mt-3">
+        <div class="row bg-light p-3 rounded elevation-5 mt-3">
             <div class="col-3">
                 <img class="img-fluid" :src="group.coverImg" />
             </div>
