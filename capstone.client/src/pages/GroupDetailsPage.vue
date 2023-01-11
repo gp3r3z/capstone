@@ -48,7 +48,7 @@
 
 
         <!-- SECTION Group Events Component -->
-        <section class="row mt-5">
+        <section class="row bg-white mt-5 mx-5">
             <div v-for="e in events" class="d-flex">
                 <GroupEvent :event="e" />
             </div>

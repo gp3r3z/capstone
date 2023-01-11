@@ -1,17 +1,20 @@
 <template>
     <div class="col-3 d-flex justify-content-between">
-        <i class="mdi mdi-dots-horizontal fs-3 text-light"></i>
+        <button v-if="foundMe" class="btn btn-light">
+            <i class="mdi mdi-dots-horizontal fs-3 text-warning"></i>
+        </button>
         <img :src="event.coverImg" alt="" class="img-fluid">
     </div>
-    <div class="col-7 text-white">
+    <div class="ms-5 col-7 text-black">
         {{ event.title }}
         {{ event.startTime }}
         {{ event.capacity }}
+        {{ event._id }}
     </div>
 </template>
 
 <script>
-import { computed } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 import { watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
@@ -34,20 +37,23 @@ export default {
 
     setup() {
         const route = useRoute()
-        async function getEventById() {
-            try {
-                await eventsService.getEventById(route.params.id)
-            } catch (error) {
-                logger.error(error)
-                Pop.error(('[ERROR]'), error.message)
-            }
-        }
+        const editMode = ref(false)
+        // async function getEventById() {
+        //     try {
+        //         await eventsService.getEventById(route.params.id)
+        //     } catch (error) {
+        //         logger.error(error)
+        //         Pop.error(('[ERROR]'), error.message)
+        //     }
+        // }
 
         watchEffect(() => {
-            getEventById()
+            // getEventById()
         })
         return {
             account: computed(() => AppState.account),
+            foundMe: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
+            editMode
 
 
         };
