@@ -74,7 +74,7 @@
     </section>
 
     <section class="row justify-content-center">
-      <div v-for="g in games" class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-light text-center" @click="">
+      <div v-for="g in games" class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-light text-center">
         <GameCard :game="g" />
       </div>
     </section>
