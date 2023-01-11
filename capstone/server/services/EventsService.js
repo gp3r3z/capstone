@@ -4,20 +4,25 @@ import { logger } from "../utils/Logger.js"
 
 
 class EventsService {
-
-    async createEvent(eventData) {
-        logger.log('[Server: Creating Event for Group]', eventData)
-        const event = dbContext.Event.create(eventData)
+    async getEventByEventId(eventId) {
+        logger.log('[Server: Getting Event by id:', eventId)
+        const event = await dbContext.Event.find({ eventId })
         return event
     }
+
     async getEventsByGroupId(groupId) {
         logger.log('[Server: Getting Event for GroupID]', groupId)
-        const event = dbContext.Event.find({ groupId })
+        const event = await dbContext.Event.find({ groupId })
+        return event
+    }
+    async createEvent(eventData) {
+        logger.log('[Server: Creating Event for Group]', eventData)
+        const event = await dbContext.Event.create(eventData)
         return event
     }
     async removeEvent(eventId) {
         logger.log('[Server: Removing Event for Group]', eventId)
-        const event = dbContext.Event.remove({ _id: eventId })
+        const event = await dbContext.Event.remove({ _id: eventId })
         return event
     }
     async editEvent(eventId, eventData) {

@@ -8,7 +8,8 @@ export class EventsController extends BaseController {
     constructor() {
         super('api/events')
         this.router
-            .get('/:groupId', this.getEventsByGroupId)
+            .get('/:groupId/group', this.getEventsByGroupId)
+            .get('/:eventId', this.getEventByEventId)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
             .delete('/:eventId', this.removeEvent)
@@ -16,13 +17,9 @@ export class EventsController extends BaseController {
             .post('/:eventId', this.joinEvent)
     }
 
-    async createEvent(req, res, next) {
+    async getEventByEventId(req, res, next) {
         try {
-
-            req.body.creatorId = req.userInfo.id
-            req.body.groupId = req.body.groupId
-
-            const events = await eventsService.createEvent(req.body)
+            const events = await eventsService.getEventByEventId(req.params.eventId)
             return res.send(events)
         } catch (error) {
             next(error)
@@ -31,6 +28,18 @@ export class EventsController extends BaseController {
     async getEventsByGroupId(req, res, next) {
         try {
             const events = await eventsService.getEventsByGroupId(req.params.groupId)
+            return res.send(events)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async createEvent(req, res, next) {
+        try {
+
+            req.body.creatorId = req.userInfo.id
+            req.body.groupId = req.body.groupId
+
+            const events = await eventsService.createEvent(req.body)
             return res.send(events)
         } catch (error) {
             next(error)

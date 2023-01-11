@@ -14,6 +14,11 @@ class GroupsService {
         logger.log('getting group members by group id', res.data)
         AppState.groupMembers = res.data
     }
+    async getEventsByGroupId(groupId) {
+        const res = await api.get(`api/events/${groupId}/group`)
+        logger.log('getting events by group id', res.data)
+        AppState.events = res.data
+    }
     async joinGroup(body) {
         logger.log('Join group by groupId ', body)
         const res = await api.post(`api/groupmember/`, { groupId: body })
@@ -32,12 +37,6 @@ class GroupsService {
 
         AppState.activeGroup.capacity++
 
-    }
-
-    async getEventsByGroupId(groupId) {
-        const res = await api.get(`api/events/${groupId}`)
-        logger.log('getting events by group id', res.data)
-        AppState.events = res.data
     }
 
     async createGroup(gameId, body) {
