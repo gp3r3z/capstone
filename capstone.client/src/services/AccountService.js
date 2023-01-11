@@ -20,6 +20,15 @@ class AccountService {
       logger.error('Error Getting MyGroups', err)
     }
   }
+  async getMyEvents() {
+    try {
+      const res = await api.get('/account/getMyEvents')
+      AppState.myEvents = res.data
+      logger.log('Getting myEvents ', res.data)
+    } catch (err) {
+      logger.error('Error Getting myEvents', err)
+    }
+  }
 }
 
 
