@@ -17,6 +17,9 @@
     </section>
     <section class="row mt-3">
       <h3 class="border-bottom text-center">MyGroups</h3>
+      <div v-for="g in myGroups" class="bg-danger">
+        <GroupRowCard :group="g" />
+      </div>
     </section>
     <section class="row mt-3">
       <h3 class="border-bottom text-center">MyEvents</h3>
@@ -29,12 +32,29 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
+import Pop from '../utils/Pop.js'
+import { logger } from '../utils/Logger.js'
+import { accountService } from '../services/AccountService.js'
 export default {
   setup() {
+    async function getMyGroups() {
+      try {
+        await accountService.getMyGroups()
+      } catch (error) {
+        Pop.error(error)
+        logger.log(error)
+      }
+    }
+
+
+    onMounted(() => {
+      getMyGroups()
+    })
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      myGroups: computed(() => AppState.myGroups)
     }
   }
 }
