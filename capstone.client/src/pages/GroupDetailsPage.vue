@@ -20,7 +20,10 @@
                 <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
             </div>
             <div class="col-5 p-3  rounded">
-                <div v-if="account.id && !foundMe && activeGroup.capacity > 0">
+                <div v-if="account.id == activeGroup.creatorId">
+
+                </div>
+                <div v-else-if="account.id && !foundMe && activeGroup.capacity > 0">
                     <button @click="joinGroup" class="btn btn-primary">Join</button>
                 </div>
                 <div v-else-if="foundMe">
@@ -43,10 +46,6 @@
             </div>
         </section>
 
-        <!-- SECTION Group Chat -->
-        <!-- TODO off canvas for group chat? -->
-
-
         <!-- SECTION Group Events Component -->
         <section class="row bg-white mt-5 mx-5">
             <div v-for="e in events" class="d-flex">
@@ -54,6 +53,36 @@
             </div>
         </section>
 
+        <!-- SECTION Group Chat -->
+        <button v-if="foundMe" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            Group Chat
+        </button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Group Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    <section class="row">
+                        <div v-for="c in comments" class="col-11">
+                            <Comment :comment="c" />
+                        </div>
+                        <div>
+                            <form @submit.prevent="postComment()">
+                                <textarea v-model="editable.description" name="Chat...." id="" cols="30"
+                                    rows="10"></textarea>
+                                <button class="btn-btn-primary">
+                                    <i class="mdi mdi-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
     </section>
 
 </template>
@@ -61,12 +90,14 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect } from 'vue';
+import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { groupsService } from '../services/GroupsService.js'
-import GroupEvent from '../components/GroupEvent.vue'
+import { commentsService } from '../services/CommentsService.js'
+import Comment from '../components/Comment.vue';
+import GroupEvent from '../components/GroupEvent.vue';
 // import { emit } from 'process';
 
 
@@ -74,6 +105,7 @@ import GroupEvent from '../components/GroupEvent.vue'
 export default {
     setup() {
         const route = useRoute();
+        const editable = ref({})
         async function getGroupById() {
             try {
                 await groupsService.getGroupById(route.params.id);
@@ -85,74 +117,89 @@ export default {
         }
         async function getGroupMembersByGroupId() {
             try {
-                await groupsService.getGroupMembersByGroupId(route.params.id)
-            } catch (error) {
-                Pop.error(('[ERROR]'), error.message)
-                logger.log(error)
+                await groupsService.getGroupMembersByGroupId(route.params.id);
+            }
+            catch (error) {
+                Pop.error(("[ERROR]"), error.message);
+                logger.log(error);
             }
         }
         async function getEventsByGroupId() {
             try {
-                await groupsService.getEventsByGroupId(route.params.id)
+                await groupsService.getEventsByGroupId(route.params.id);
+            }
+            catch (error) {
+                console.error(error);
+                Pop.error(("[ERROR]"), error.message);
+                logger.log(error);
+            }
+        }
+        async function getCommentsByGroupId() {
+            try {
+                await commentsService.getCommentsByGroupId(route.params.id)
             } catch (error) {
                 console.error(error)
                 Pop.error(('[ERROR]'), error.message)
-                logger.log(error)
             }
         }
-
         watchEffect(() => {
-            getGroupById()
-            getGroupMembersByGroupId()
-            getEventsByGroupId()
-            AppState.activeEvent
-        })
+            getGroupById();
+            getGroupMembersByGroupId();
+            getEventsByGroupId();
+            getCommentsByGroupId()
+            AppState.activeEvent;
+
+        });
         return {
+            editable,
             activeGroup: computed(() => AppState.activeGroup),
             foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
             account: computed(() => AppState.account),
             groupMembers: computed(() => AppState.groupMembers),
             events: computed(() => AppState.events),
-
-
-
+            comments: computed(() => AppState.comments),
             async joinGroup() {
                 try {
-                    logger.log('Attempting to join group')
-                    await groupsService.joinGroup(route.params.id)
-                    Pop.success('Joined Group!')
+                    logger.log("Attempting to join group");
+                    await groupsService.joinGroup(route.params.id);
+                    Pop.success("Joined Group!");
                 }
                 catch (error) {
                     Pop.error(error);
                     logger.log(error);
                 }
-
             },
             async leaveGroup(groupMemberId) {
                 try {
-                    logger.log('Attempting to leave group', groupMemberId)
-                    if (await Pop.confirm('Are you sure you want to leave this group?')) {
-                        await groupsService.leaveGroup(groupMemberId)
+                    logger.log("Attempting to leave group", groupMemberId);
+                    if (await Pop.confirm("Are you sure you want to leave this group?")) {
+                        await groupsService.leaveGroup(groupMemberId);
                     }
                 }
                 catch (error) {
                     Pop.error(error);
                     logger.log(error);
                 }
-
             },
-
-            async editGroup() {
+            // async editGroup() {
+            //     try {
+            //     }
+            //     catch (error) {
+            //         Pop.error(("[ERROR]"), error.message);
+            //         logger.log;
+            //     }
+            // },
+            async postComment() {
                 try {
-
+                    await commentsService.postComment(editable.value, route.params.id)
+                    editable.value = {}
                 } catch (error) {
                     Pop.error(('[ERROR]'), error.message)
-                    logger.log
                 }
             }
-
-        }
-    }
+        };
+    },
+    components: { Comment, GroupEvent }
 };
 </script>
 

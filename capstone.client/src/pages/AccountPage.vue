@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop.js'
 import { logger } from '../utils/Logger.js'
@@ -60,9 +60,10 @@ export default {
     }
 
 
-    onMounted(() => {
+    watchEffect(() => {
       getMyGroups()
       getMyEvents()
+      AppState.activeEvent
     })
     return {
       account: computed(() => AppState.account),

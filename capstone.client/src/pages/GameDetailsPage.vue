@@ -61,6 +61,7 @@ import { onMounted, computed } from 'vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { groupsService } from '../services/GroupsService.js';
+import GroupRowCard from '../components/GroupRowCard.vue';
 
 export default {
     setup() {
@@ -84,15 +85,15 @@ export default {
             }
         }
         onMounted(() => {
-            getGameById()
-            getGroupsByGameId()
-        })
+            getGameById();
+            getGroupsByGameId();
+        });
         return {
             activeGame: computed(() => AppState.activeGame),
             groups: computed(() => AppState.groups),
-           
-        }
-    }
+        };
+    },
+    components: { GroupRowCard }
 }
 </script>
 
