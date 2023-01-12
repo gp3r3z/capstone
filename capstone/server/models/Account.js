@@ -9,7 +9,7 @@ export const AccountSchema = new Schema(
     picture: { type: String },
     bio: { type: String },
     gamerTags: { type: Schema.Types.Array },
-    skillLevel: { type: String, default: 'begginer', enum: ['beginner', 'casual', 'competitive'], lowercase: true },
+    platform: { type: String, enum: ['PLAYSTATION', 'XBOX', 'PC', 'NINTENDO'], lowercase: true },
     coverImage: { type: String },
 
     // NOTE If you wish to add additional properties do so here

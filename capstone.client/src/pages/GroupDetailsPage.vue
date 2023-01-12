@@ -88,7 +88,7 @@
         <section class="row">
             <button v-if="foundMe" href="#"
                 class="float btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
-                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Create Group">
+                data-bs-toggle="modal" data-bs-target="#create-event-modal" title="Create Event">
                 <i class="mdi mdi-gamepad-variant fs-1"></i>
             </button>
         </section>
