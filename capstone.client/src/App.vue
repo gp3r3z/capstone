@@ -13,14 +13,19 @@
   </CreateGroup>
   <EditGroupForm />
   <EditEventForm />
+  <CreateEvent>
+    <EventForm />
+  </CreateEvent>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import CreateEvent from './components/CreateEvent.vue'
 import CreateGroup from "./components/CreateGroup.vue"
 import EditEventForm from './components/EditEventForm.vue'
 import EditGroupForm from './components/EditGroupForm.vue'
+import EventForm from './components/EventForm.vue'
 import GroupForm from "./components/GroupForm.vue"
 import Navbar from './components/Navbar.vue'
 
@@ -31,7 +36,7 @@ export default {
       appState: computed(() => AppState),
     }
   },
-  components: { Navbar, CreateGroup, GroupForm, EditGroupForm, EditEventForm }
+  components: { Navbar, CreateGroup, GroupForm, EditGroupForm, EditEventForm, CreateEvent, CreateEvent, EventForm }
 }
 </script>
 <style lang="scss">

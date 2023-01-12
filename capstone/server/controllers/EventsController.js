@@ -11,7 +11,7 @@ export class EventsController extends BaseController {
             .get('/:groupId/group', this.getEventsByGroupId)
             .get('/:eventId', this.getEventByEventId)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('', this.createEvent)
+            .post('/:groupId', this.createEvent)
             .delete('/:eventId', this.removeEvent)
             .put('/:eventId', this.editEvent)
             .post('/:eventId', this.joinEvent)
