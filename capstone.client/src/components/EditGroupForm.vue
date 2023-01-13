@@ -1,9 +1,9 @@
 <template>
     <div class="modal fade" id="edit-group-modal" tabindex="-1" aria-labelledby="editGroupModal" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content bg-light">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editGroupLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="editGroupLabel">Edit Group </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form @submit.prevent="editGroup()">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create Group</button>
+                        <button type="submit" class="btn btn-primary">Edit Group</button>
                     </div>
                 </form>
             </div>
@@ -62,13 +62,13 @@
 
 <script>
 import { propsToAttrMap } from '@vue/shared';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { groupsService } from '../services/GroupsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { Modal } from 'bootstrap'
-
+import { AppState } from '../AppState.js';
 
 export default {
     props: {
@@ -77,6 +77,7 @@ export default {
 
 
     setup() {
+
         const editable = ref({})
         const route = useRoute()
         async function editGroup() {
@@ -89,6 +90,13 @@ export default {
                 logger.error(error)
             }
         }
+        watchEffect(() => {
+            if (AppState.activeGroup) {
+                logger.log('here is the active group in the watch effect', AppState.activeGroup)
+                editable.value = { ...AppState.activeGroup }
+            }
+
+        });
 
         return {
             editable,
