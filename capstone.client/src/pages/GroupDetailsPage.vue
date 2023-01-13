@@ -96,7 +96,7 @@
 
         <!-- SECTION CREATE EVENT BUTTON -->
         <section class="row">
-            <button v-if="foundMe" href="#"
+            <button v-if="foundMe || activeGroup.creatorId == account.id" href="#"
                 class="float-right btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
                 data-bs-toggle="modal" data-bs-target="#create-event-modal" title="Create Event">
                 <i class="mdi mdi-gamepad-variant fs-1"></i>

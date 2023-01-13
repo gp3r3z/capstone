@@ -29,8 +29,8 @@ class EventsService {
     async joinEvent(eventId, accountId) {
         const res = await api.post(`api/events/${eventId}/events`, { groupMemberId: accountId })
         logger.log('joined event', res.data)
-        AppState.events.push(res.data)
-        // AppState.activeEvent.capacity--
+
+
     }
 
 }
