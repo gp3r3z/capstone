@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { logger } from '../utils/Logger.js'
 
 // Private Methods
 
@@ -73,6 +74,30 @@ class AccountService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     )
     return account
+  }
+
+  async editAccount(id, body) {
+    logger.log('[EDITINGACCOUNT]', id, ' \n with body ', body)
+    const originalAccount = await dbContext.Account.findById(id)
+    //TODO why is this returning a bad doc vs our event edit service
+
+    // @ts-ignore
+    originalAccount.name = body.name ? body.name : originalAccount.name
+    // @ts-ignore
+    originalAccount.email = body.email != undefined ? body.email : originalAccount.email
+    // @ts-ignore
+    originalAccount.name = body.name ? body.name : originalAccount.name
+    // @ts-ignore
+    originalAccount.picture = body.picture ? body.picture : originalAccount.picture
+    // @ts-ignore
+    originalAccount.coverImg = body.coverImg ? body.coverImg : originalAccount.coverImg
+    // @ts-ignore
+    originalAccount.platform = body.platform ? body.platform : originalAccount.platform
+    // @ts-ignore
+    originalAccount.bio = body.bio ? body.bio : originalAccount.bio
+    // @ts-ignore
+    await originalAccount.save()
+    return originalAccount
   }
 }
 export const accountService = new AccountService()

@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
 import { commentsService } from "../services/CommentsService.js";
+import { socketProvider } from "../SocketProvider.js";
 
 
 export class CommentsController extends BaseController {
@@ -18,6 +19,8 @@ export class CommentsController extends BaseController {
             req.body.groupId = req.params.groupId
 
             const comment = await commentsService.createComment(req.body)
+
+            socketProvider.messageRoom(req.params.groupId, 'MESSAGE_ADDED', comment)
             return res.send(comment)
         } catch (error) {
             next(error)

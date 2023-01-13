@@ -42,7 +42,8 @@
 
         </section>
         <section class="row">
-            <button href="#" class="float btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
+            <button href="#"
+                class="float-right btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
                 data-bs-toggle="modal" data-bs-target="#exampleModal" title="Create Group">
                 <i class="mdi mdi-gamepad-variant fs-1"></i>
             </button>
@@ -122,12 +123,25 @@ export default {
 
 
 
-.float {
+.float-right {
     position: fixed;
     width: 60px;
     height: 60px;
     bottom: 40px;
     right: 40px;
+    background-color: #0C9;
+    color: #AECBCF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #AECBCF;
+}
+
+.float-left {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    margin-left: 20px;
     background-color: #0C9;
     color: #AECBCF;
     border-radius: 50px;

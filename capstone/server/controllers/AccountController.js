@@ -13,6 +13,7 @@ export class AccountController extends BaseController {
       .get('', this.getUserAccount)
       .get('/getMyEvents', this.getMyEventsByCreatorId)
       .get('/getMyGroups', this.getMyGroupsByCreatorId)
+      .put('', this.editAccount)
   }
 
   async getUserAccount(req, res, next) {
@@ -36,6 +37,15 @@ export class AccountController extends BaseController {
     try {
 
       const account = await groupsService.getMyGroupsByCreatorId(req.userInfo.id)
+      res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async editAccount(req, res, next) {
+    try {
+ 
+      const account = await accountService.editAccount(req.userInfo.id, req.body)
       res.send(account)
     } catch (error) {
       next(error)

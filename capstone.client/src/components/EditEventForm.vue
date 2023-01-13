@@ -1,7 +1,7 @@
 <template>
     <div class="modal fade" id="edit-event-modal" tabindex="-1" aria-labelledby="editEventModal" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content bg-light">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="editEventLabel">Edit Event</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -24,16 +24,18 @@
                                     placeholder="Event Title">
                                 <label for="title">Event Title</label>
                             </div>
+                            <!-- TODO possibly add auto add for start time  -->
                             <div class="form-floating mb-3 elevation-5">
-                                <input v-model="editable.startTime" type="date" required class="form-control"
+                                <input v-model="editable.startTime" type="date" class="form-control time-input"
                                     id="startTime" placeholder="Event Start Date">
-                                <label for="startTime">Event Start Time</label>
+
+                                <label for="startTime">Current StartTime {{ editable.startTime }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create Group</button>
+                        <button type="submit" class="btn btn-primary">Edit Event</button>
                     </div>
                 </form>
             </div>
@@ -42,7 +44,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { eventsService } from '../services/EventsService';
 import { logger } from '../utils/Logger';
@@ -59,8 +61,16 @@ export default {
     },
 
 
-    setup(props) {
+    setup() {
         const editable = ref({})
+
+        watchEffect(() => {
+            if (AppState.activeEvent) {
+                logger.log('here is the active event in the watch effect', AppState.activeEvent[0])
+                editable.value = { ...AppState.activeEvent[0] }
+            }
+
+        });
         async function editEvent(activeEvent) {
             try {
 

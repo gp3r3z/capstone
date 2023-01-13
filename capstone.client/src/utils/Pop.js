@@ -12,7 +12,7 @@ export default class Pop {
  *
  * {@link https://sweetalert2.github.io/#configuration|Check out Sweet Alerts}
  */
-  static async confirm(title = 'Are you sure?', text = "You won't be able to revert this!", confirmButtonText = 'Yes', icon = 'warning') {
+  static async confirm(title = 'Are you sure?', text = "You will no longer have access to group chat services...", confirmButtonText = 'Yes', icon = 'warning') {
     try {
       const res = await Swal.fire({
         title,

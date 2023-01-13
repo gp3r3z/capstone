@@ -52,17 +52,27 @@
                 <GroupEvent :event="e" />
             </div>
         </section>
+        <!-- SECTION Group Chat BUTTON -->
+        <section class="row">
+            <button v-if="foundMe || account.id == activeGroup.creatorId" @click="enterGroupChat" class=" btn-primary float-left btn rounded-circle bg-dark d-flex justify-content-start
+                align-items-start" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample">
+                <i class="mdi mdi-chat fs-1"></i>
+            </button>
 
+        </section>
         <!-- SECTION Group Chat -->
-        <button v-if="foundMe" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <!-- <button v-if="foundMe || account.id == activeGroup.creatorId" @click="enterGroupChat" class="btn btn-primary"
+            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample">
             Group Chat
-        </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+        </button> -->
+        <div class="offcanvas offcanvas-start bg-secondary" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">Group Chat</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button @click="leaveGroupChat" type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <div>
@@ -87,11 +97,12 @@
         <!-- SECTION CREATE EVENT BUTTON -->
         <section class="row">
             <button v-if="foundMe" href="#"
-                class="float btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
+                class="float-right btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
                 data-bs-toggle="modal" data-bs-target="#create-event-modal" title="Create Event">
                 <i class="mdi mdi-gamepad-variant fs-1"></i>
             </button>
         </section>
+
     </section>
 
 </template>
@@ -99,7 +110,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
+import { computed, watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -107,8 +118,7 @@ import { groupsService } from '../services/GroupsService.js'
 import { commentsService } from '../services/CommentsService.js'
 import Comment from '../components/Comment.vue';
 import GroupEvent from '../components/GroupEvent.vue';
-// import { emit } from 'process';
-
+import { GroupHandler } from '../handler/GroupHandler.js';
 
 
 export default {
@@ -145,6 +155,7 @@ export default {
         }
         async function getCommentsByGroupId() {
             try {
+
                 await commentsService.getCommentsByGroupId(route.params.id)
             } catch (error) {
                 console.error(error)
@@ -158,6 +169,8 @@ export default {
             getCommentsByGroupId()
             AppState.activeEvent;
 
+
+
         });
         return {
             editable,
@@ -169,12 +182,13 @@ export default {
             comments: computed(() => AppState.comments),
             async joinGroup() {
                 try {
+
                     logger.log("Attempting to join group");
                     await groupsService.joinGroup(route.params.id);
-                    Pop.success("Joined Group!");
+                    Pop.success("Joined Group!\nMessage Service Activated");
                 }
                 catch (error) {
-                    Pop.error(error);
+                    Pop.error('Unable to join Group: ', error);
                     logger.log(error);
                 }
             },
@@ -186,6 +200,22 @@ export default {
                     }
                 }
                 catch (error) {
+                    Pop.error(error);
+                    logger.log(error);
+                }
+            },
+            async enterGroupChat() {
+                try {
+                    GroupHandler.EnterGroupChat(route.params.id)
+                } catch (error) {
+                    Pop.error(error);
+                    logger.log(error);
+                }
+            },
+            async leaveGroupChat() {
+                try {
+                    GroupHandler.LeaveGroupChat(route.params.id)
+                } catch (error) {
                     Pop.error(error);
                     logger.log(error);
                 }
@@ -213,7 +243,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .hero-img {
     height: 55vh;
     background-position: center;

@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid bg-img">
     <div class="row justify-content-center mt-5">
-      <div class="col-5 rounded bg-light text-center elevation-3">
+      <div class="col-5 rounded blur text-white text-center elevation-3">
         <h3 class="p-1">Top Games</h3>
 
       </div>
@@ -39,13 +39,13 @@
     </div>
 
     <section class="row justify-content-center mt-5">
-      <div class="col-5 rounded bg-light text-center elevation-3">
+      <div class="col-5 rounded blur text-white text-center elevation-3">
         <h3 class="p-1">Filter By Genre</h3>
       </div>
     </section>
 
     <section class="row p-3 mx-2 my-4 justify-content-center">
-      <div class="col-12 bg-light elevation-5 p-3 rounded d-flex justify-content-between">
+      <div class="col-12 blur elevation-5 p-3 rounded d-flex justify-content-between">
         <button @click="getGames()" class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
             class="button-82-edge"></span><span class="button-82-front text">All</span></button>
         <button @click="getGamesByGenres('shooter')" class="button-82-pushable" role="button"><span
@@ -73,8 +73,8 @@
       </div>
     </section>
 
-    <section class="row justify-content-center">
-      <div v-for="g in games" class="col-3 m-4 pb-4 px-4 pt-1 rounded elevation-5 bg-light text-center">
+    <section class="l-container">
+      <div v-for="g in games">
         <GameCard :game="g" />
       </div>
     </section>
@@ -143,6 +143,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(56, 56, 56, 0.541);
+}
+
+.l-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  width: 100%;
+  padding: 30px;
+}
+
+@media screen and (max-width: 760px) {
+  .l-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .carousel-img {
   height: 65vh;
   width: 100%;
