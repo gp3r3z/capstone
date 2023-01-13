@@ -51,6 +51,8 @@ class EventsService {
         // @ts-ignore
         event.eventGoers.push(groupMemberId)
         // @ts-ignore
+        event.capacity--
+        // @ts-ignore
         event.save()
         return event
 

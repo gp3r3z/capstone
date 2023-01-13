@@ -6,7 +6,7 @@ import { api } from "./AxiosService";
 class CommentsService {
     async getCommentsByGroupId(groupId) {
         const res = await api.get(`api/groups/${groupId}/comments`)
-        logger.log('getting comments by group id', res.data)
+        // logger.log('getting comments by group id', res.data)
         AppState.comments = res.data
     }
 

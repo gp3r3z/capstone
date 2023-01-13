@@ -14,7 +14,7 @@ export class EventsController extends BaseController {
             .post('/:groupId', this.createEvent)
             .delete('/:eventId', this.removeEvent)
             .put('/:eventId', this.editEvent)
-            .post('/:eventId', this.joinEvent)
+            .post('/:eventId/events', this.joinEvent)
     }
 
     async getEventByEventId(req, res, next) {
@@ -37,7 +37,7 @@ export class EventsController extends BaseController {
         try {
 
             req.body.creatorId = req.userInfo.id
-            req.body.groupId = req.body.groupId
+            req.body.groupId = req.params.groupId
 
             const events = await eventsService.createEvent(req.body)
             return res.send(events)

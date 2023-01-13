@@ -11,7 +11,20 @@
             {{ event.startTime }}
             {{ event.capacity }}
             {{ event._id }}
+
         </div>
+    </div>
+    <div>
+        <div v-if="event.creatorId == account.id">
+            <!-- NOTE cancel event goes here -->
+        </div>
+        <button v-else-if="!findMe" class="btn btn-success" @click="joinEvent(event._id, account.id)">
+            <i class="mdi mdi-check">join event</i>
+
+        </button>
+        <button v-else="findMe" class="btn btn-success">
+            leave event
+        </button>
     </div>
 </template>
 
@@ -23,6 +36,7 @@ import { AppState } from '../AppState';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { eventsService } from '../services/EventsService.js'
+import { useRoute } from 'vue-router';
 
 
 
@@ -38,7 +52,7 @@ export default {
 
 
     setup() {
-        // const route = useRoute()
+        const route = useRoute()
         async function getEventById(eventId) {
             try {
                 await eventsService.getEventById(eventId)
@@ -52,7 +66,21 @@ export default {
         return {
             account: computed(() => AppState.account),
             foundMe: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
-            getEventById
+            findMe: computed(() => AppState.events.find(e => e.eventGoers.groupMemberId == AppState.account.id)),
+            getEventById,
+            activeEvent: computed(() => AppState.activeEvent),
+            // groupMember: computed(() => AppState.groupMembers),
+
+            async joinEvent(eventId, accountId) {
+                try {
+                    await eventsService.joinEvent(eventId, accountId)
+                    Pop.toast('Event joined!', 'success')
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(('[ERROR]'), error.message)
+                }
+            }
+
 
 
         };

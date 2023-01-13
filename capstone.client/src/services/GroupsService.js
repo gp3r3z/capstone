@@ -5,18 +5,18 @@ import { api } from "./AxiosService.js"
 class GroupsService {
     async getGroupById(id) {
         const res = await api.get(`api/groups/${id}`)
-        logger.log('Getting group by Id ', id, '\n Response ', res.data)
+        // logger.log('Getting group by Id ', id, '\n Response ', res.data)
         AppState.activeGroup = res.data
     }
 
     async getGroupMembersByGroupId(groupId) {
         const res = await api.get(`api/groups/${groupId}/groupmember`)
-        logger.log('getting group members by group id', res.data)
+        // logger.log('getting group members by group id', res.data)
         AppState.groupMembers = res.data
     }
     async getEventsByGroupId(groupId) {
         const res = await api.get(`api/events/${groupId}/group`)
-        logger.log('getting events by group id', res.data)
+        // logger.log('getting events by group id', res.data)
         AppState.events = res.data
     }
     async joinGroup(body) {
