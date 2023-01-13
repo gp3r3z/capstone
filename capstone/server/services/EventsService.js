@@ -4,6 +4,7 @@ import { logger } from "../utils/Logger.js"
 
 
 class EventsService {
+
     async getEventByEventId(eventId) {
         logger.log('[Server: Getting Event by id:', eventId)
         const event = await dbContext.Event.find({ _id: eventId })
@@ -23,6 +24,8 @@ class EventsService {
     async removeEvent(eventId) {
         logger.log('[Server: Removing Event for Group]', eventId)
         const event = await dbContext.Event.remove({ _id: eventId })
+        event.isCanceled = !event.isCanceled
+        await event.save()
         return event
     }
     async editEvent(eventId, eventData) {
@@ -51,8 +54,29 @@ class EventsService {
         // @ts-ignore
         event.eventGoers.push(groupMemberId)
         // @ts-ignore
+        event.capacity--
+        // @ts-ignore
         event.save()
         return event
+
+    }
+
+    async leaveEvent(eventId, userId) {
+        const event = dbContext.Event.findById(eventId)
+        if (!event) throw new BadRequest(`no event at id: ${eventId}`)
+
+        // @ts-ignore
+        if (event.creatorId.toString() != userId) throw new Forbidden('cannot leave an event you were never attending')
+
+        // @ts-ignore
+        await event.eventGoers.remove(userId)
+        // @ts-ignore
+        event.capacity++
+
+        // @ts-ignore
+        await event.save()
+
+        return 'you left the event'
 
     }
     async getMyEventsByCreatorId(id) {
