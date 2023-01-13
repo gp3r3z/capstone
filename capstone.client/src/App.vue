@@ -2,8 +2,7 @@
   <header class="navbar-dark sticky-top">
     <Navbar />
   </header>
-  <main class="bg-img"
-    :style="`background-image: url(https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80)`">
+  <main class="bg-img" :style="`background-image: url(https://images4.alphacoders.com/109/1091511.jpg)`">
     <router-view />
   </main>
   <footer>
@@ -50,6 +49,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
 }
 
 .main-color {
@@ -57,7 +57,7 @@ export default {
 }
 
 .navbar-dark {
-  background-color: #2b3754c7;
+  background-color: #e6b6e673;
   backdrop-filter: blur(5px)
 }
 

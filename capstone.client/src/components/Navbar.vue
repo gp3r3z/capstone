@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg dark px-3 elevation-3">
+  <nav class="navbar navbar-expand-lg blur px-3 elevation-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img class="logo p-2"
@@ -36,8 +36,9 @@ a:hover {
   text-decoration: none;
 }
 
-.dark {
-  background-color: #2a2d3a67;
+.blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(56, 56, 56, 0);
 }
 
 .logo {

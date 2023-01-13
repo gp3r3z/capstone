@@ -10,7 +10,16 @@ class GamesService {
         const res = await rawgAPI.get('games?page_size=50')
         logger.log('getting games', res.data)
         AppState.games = res.data.results.map(g => new Game(g))
+        AppState.nextPage = res.data.next
+        AppState.prevPage = res.data.previous
 
+    }
+    async switchPage(url) {
+        const res = await rawgAPI.get(url)
+        logger.log(res.data)
+        AppState.games = res.data.results.map(g => new Game(g))
+        AppState.prevPage = res.data.previous
+        AppState.nextPage = res.data.next
     }
     async getGamesByGenres(query) {
         const res = await rawgAPI.get(`games?genres=${query}&page_size=50`)

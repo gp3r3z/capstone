@@ -39,13 +39,13 @@
     </div>
 
     <section class="row justify-content-center mt-5">
-      <div class="col-5 rounded blur text-white text-center elevation-3">
+      <div class="col-5 bar text-white text-center elevation-3">
         <h3 class="p-1">Filter By Genre</h3>
       </div>
     </section>
 
     <section class="row p-3 mx-2 my-4 justify-content-center">
-      <div class="col-12 blur elevation-5 p-3 rounded d-flex justify-content-between">
+      <div class="col-12 d-flex justify-content-between">
         <button @click="getGames()" class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
             class="button-82-edge"></span><span class="button-82-front text">All</span></button>
         <button @click="getGamesByGenres('shooter')" class="button-82-pushable" role="button"><span
@@ -72,13 +72,30 @@
         <button @click="getGamesByGenres('fighting')" class="col-1  btn btn-primary fw-bold">Fighting</button> -->
       </div>
     </section>
-
-    <section class="l-container">
-      <div v-for="g in games">
-        <GameCard :game="g" />
-      </div>
-    </section>
+    <Suspense>
+      <section class="l-container">
+        <div v-for="g in games">
+          <GameCard :game="g" />
+        </div>
+      </section>
+      <template #fallback>
+        Loading...
+      </template>
+    </Suspense>
   </section>
+  <section class="row justify-content-center">
+    <div class="col-4 text-center mb-3">
+      <button :disabled="!prevPage" @click="switchPage(prevPage)" class="button-82-pushable" role="button"><span
+          class="button-82-shadow"></span><span class="button-82-edge"></span><span
+          class="button-82-front text">Prev</span></button>
+    </div>
+    <div class="col-4 text-center mb-3">
+      <button :disabled="!nextPage" @click="switchPage(nextPage)" class="button-82-pushable" role="button"><span
+          class="button-82-shadow"></span><span class="button-82-edge"></span><span
+          class="button-82-front text">Next</span></button>
+    </div>
+  </section>
+
 </template>
 
 <script>
@@ -102,6 +119,14 @@ export default {
       catch (error) {
         console.error(error);
         Pop.error(("[ERROR]"), error.message);
+      }
+    }
+    async function switchPage(url) {
+      try {
+        await gamesService.switchPage(url)
+      } catch (error) {
+        console.error(error)
+        Pop.error(error.message)
       }
     }
     async function getGamesByGenres(query) {
@@ -129,7 +154,10 @@ export default {
     return {
       getGamesByGenres,
       getGames,
+      switchPage,
       games: computed(() => AppState.games),
+      prevPage: computed(() => AppState.prevPage),
+      nextPage: computed(() => AppState.nextPage),
       route,
 
     };
@@ -145,7 +173,7 @@ export default {
 <style scoped lang="scss">
 .blur {
   backdrop-filter: blur(5px);
-  background-color: rgba(56, 56, 56, 0.541);
+  background-color: #cebcce61;
 }
 
 .l-container {
@@ -160,6 +188,32 @@ export default {
   .l-container {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.bar {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: rgb(255, 255, 255);
+  background: #886a6a9e;
+  backdrop-filter: blur(5px);
+  will-change: transform;
+}
+
+.bar-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(to left,
+      #002574 0%,
+      #9a9bff 8%,
+      #fe5a5a 92%,
+      #980000 100%);
 }
 
 .carousel-img {
@@ -208,10 +262,10 @@ export default {
   height: 100%;
   border-radius: 12px;
   background: linear-gradient(to left,
-      #2b3754 0%,
-      #629FCB 8%,
-      #629FCB 92%,
-      #2b3754 100%);
+      #002574 0%,
+      #9a9bff 8%,
+      #fe5a5a 92%,
+      #980000 100%);
 }
 
 .button-82-front {
@@ -220,8 +274,9 @@ export default {
   padding: 12px 27px;
   border-radius: 12px;
   font-size: 1.1rem;
-  color: white;
-  background: #344264;
+  color: rgb(255, 255, 255);
+  background: #886a6a9e;
+  backdrop-filter: blur(5px);
   will-change: transform;
   transform: translateY(-4px);
   transition:

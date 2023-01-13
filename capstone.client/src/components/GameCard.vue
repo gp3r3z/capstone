@@ -6,10 +6,10 @@
             <h3 class="text-center "> Rating: {{ game.rating }} / 5</h3>
         </div> -->
         <div class="b-game-card">
-            <div class="b-game-card__cover" :style="`background-image: url(${game.bgImg})`">
+            <div class="b-game-card__cover rounded" :style="`background-image: url(${game.bgImg})`">
             </div>
         </div>
-
+        <h5 class="text-white text-center blur mt-3 p-2 rounded elevation-4">{{ game.name }}</h5>
     </router-link>
 </template>
 
@@ -63,6 +63,11 @@ export default {
     .l-container {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+.blur {
+    backdrop-filter: blur(5px);
+    background-color: #e6b6e63c;
 }
 
 .b-game-card {
