@@ -13,6 +13,7 @@ export class EventsController extends BaseController {
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/:groupId', this.createEvent)
             .delete('/:eventId', this.removeEvent)
+            .delete('/:eventId/leave', this.leaveEvent)
             .put('/:eventId', this.editEvent)
             .post('/:eventId/events', this.joinEvent)
     }
@@ -48,6 +49,15 @@ export class EventsController extends BaseController {
     async removeEvent(req, res, next) {
         try {
             const events = await eventsService.removeEvent(req.params.eventId)
+            return res.send(events)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async leaveEvent(req, res, next) {
+        try {
+            const events = await eventsService.leaveEvent(req.params.eventId, req.userInfo.id)
             return res.send(events)
         } catch (error) {
             next(error)

@@ -1,7 +1,7 @@
 <template>
     <div @click="getEventById(event._id)">
         <div class="col-3 d-flex justify-content-between">
-            <button v-if="foundMe" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#edit-event-modal">
+            <button v-if="creator" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#edit-event-modal">
                 <i class="mdi mdi-dots-horizontal fs-3 text-warning"></i>
             </button>
             <img :src="event.coverImg" alt="" class="img-fluid">
@@ -15,16 +15,19 @@
         </div>
     </div>
     <div>
-        <div v-if="event.creatorId == account.id">
+        <div v-if="creator">
             <!-- NOTE cancel event goes here -->
             cancel event
         </div>
-        <button v-else-if="!findMe && groupFoundMe" class="btn btn-success" @click="joinEvent(event._id, account.id)">
+        <button v-else-if="!eventMember && groupMember" class="btn btn-success"
+            @click="joinEvent(event._id, account.id)">
             <i class="mdi mdi-check">join event</i>
 
         </button>
-        <button v-else="groupFoundMe && findMe" class="btn btn-success">
-            leave event
+        <button v-else-if="eventMember" class="btn btn-success" @click="leaveEvent(event._id, account.id)">
+            <i class="mdi mdi-cancel">
+                leave event
+            </i>
         </button>
     </div>
 </template>
@@ -66,9 +69,9 @@ export default {
 
         return {
             account: computed(() => AppState.account),
-            groupFoundMe: computed(() => AppState.groupMembers.find(g => g.groupMemberId == AppState.account.id)),
-            foundMe: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
-            findMe: computed(() => AppState.events.find(e => e.eventGoers.groupMemberId == AppState.account.id)),
+            groupMember: computed(() => AppState.groupMembers.find(g => g.groupMemberId == AppState.account.id)),
+            creator: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
+            eventMember: computed(() => AppState.events.find(e => e.eventGoers.groupMemberId == AppState.account.id)),
             getEventById,
             activeEvent: computed(() => AppState.activeEvent),
             activeGroup: computed(() => AppState.activeGroup),
