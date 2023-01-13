@@ -29,6 +29,12 @@ class AccountService {
       logger.error('Error Getting myEvents', err)
     }
   }
+
+  async editAccount(body) {
+    const res = await api.put('/account', body)
+    logger.log('edited your acount', res.data)
+    AppState.account = res.data
+  }
 }
 
 
