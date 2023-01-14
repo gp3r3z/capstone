@@ -11,24 +11,35 @@
             {{ event.startTime }}
             {{ event.capacity }}
             {{ event._id }}
+            <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}</h5>
+
+            This is the event creator {{ event.creatorId }}
+            Current account {{ account.id }}
+            Current event members {{ event.eventGoers }}
+
 
         </div>
     </div>
-    <div>
+    <div v-if="account.id">
         <div v-if="creator">
             <!-- NOTE cancel event goes here -->
             cancel event
         </div>
-        <button v-else-if="!eventMember && groupMember" class="btn btn-success"
-            @click="joinEvent(event._id, account.id)">
-            <i class="mdi mdi-check">join event</i>
+        <div v-if="groupMembers.some(gm => gm.accountId === account.id)">
+            <!-- if this is true then set to false  -->
+            <button v-if="!event.eventGoers.some(eg => eg.groupMemberId == account.id)" class="btn btn-success"
+                @click="joinEvent(event._id, account.id)">
+                <i class="mdi mdi-check">join event</i>
 
-        </button>
-        <button v-else-if="eventMember" class="btn btn-success" @click="leaveEvent(event._id, account.id)">
-            <i class="mdi mdi-cancel">
-                leave event
-            </i>
-        </button>
+                attending event {{ event.eventGoers.some(eg => eg.groupMemberId == account.id) }}
+            </button>
+            <button v-else class="btn btn-success" @click="leaveEvent(event._id, account.id)">
+                <i class="mdi mdi-cancel">
+                    leave event
+                    {{ event.eventGoers.some(eg => eg.groupMemberId == account.id) }}
+                </i>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -69,9 +80,8 @@ export default {
 
         return {
             account: computed(() => AppState.account),
-            groupMember: computed(() => AppState.groupMembers.find(g => g.groupMemberId == AppState.account.id)),
+            groupMembers: computed(() => AppState.groupMembers),
             creator: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
-            eventMember: computed(() => AppState.events.find(e => e.eventGoers.groupMemberId == AppState.account.id)),
             getEventById,
             activeEvent: computed(() => AppState.activeEvent),
             activeGroup: computed(() => AppState.activeGroup),

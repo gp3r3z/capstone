@@ -10,7 +10,7 @@ class EventsService {
         const res = await api.get(`api/events/${eventId}`)
         logger.log('getting event by its id', res.data)
         AppState.activeEvent = res.data
-
+        
     }
 
     async editEvent(eventData, eventId) {
@@ -24,6 +24,7 @@ class EventsService {
         const res = await api.post(`api/events/${groupId}`, eventData)
         logger.log('created event', res.data)
         AppState.events.push(res.data)
+
     }
 
     async joinEvent(eventId, accountId) {
