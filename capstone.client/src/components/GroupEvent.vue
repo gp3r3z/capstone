@@ -31,12 +31,11 @@
                 @click="joinEvent(event._id, account.id)">
                 <i class="mdi mdi-check">join event</i>
 
-                attending event {{ event.eventGoers.some(eg => eg.groupMemberId == account.id) }}
             </button>
             <button v-else class="btn btn-success" @click="leaveEvent(event._id, account.id)">
                 <i class="mdi mdi-cancel">
                     leave event
-                    {{ event.eventGoers.some(eg => eg.groupMemberId == account.id) }}
+
                 </i>
             </button>
         </div>
