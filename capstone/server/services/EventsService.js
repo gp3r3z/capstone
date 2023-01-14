@@ -62,19 +62,23 @@ class EventsService {
     }
 
     async leaveEvent(eventId, userId) {
-        const event = dbContext.Event.findById(eventId)
+        const event = await dbContext.Event.findById(eventId)
         if (!event) throw new BadRequest(`no event at id: ${eventId}`)
+        // FIXME working on correcting leave event
+        // @ts-ignore
+        // if (event.creatorId.toString() != userId) throw new Forbidden('cannot leave an event you were never attending')
 
         // @ts-ignore
-        if (event.creatorId.toString() != userId) throw new Forbidden('cannot leave an event you were never attending')
 
-        // @ts-ignore
-        await event.eventGoers.remove(userId)
+        await event.eventGoers.remove({ groupMemberId: userId })
+
         // @ts-ignore
         event.capacity++
 
         // @ts-ignore
         await event.save()
+
+        logger.log('[SERVER: UPDATED]', event.eventGoers)
 
         return 'you left the event'
 

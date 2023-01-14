@@ -1,45 +1,56 @@
 <template>
-    <div @click="getEventById(event._id)">
-        <div class="col-3 d-flex justify-content-between">
-            <button v-if="creator" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#edit-event-modal">
-                <i class="mdi mdi-dots-horizontal fs-3 text-warning"></i>
-            </button>
-            <img :src="event.coverImg" alt="" class="img-fluid">
+    <div @click="getEventById(event._id)" class="row bg-light rounded ms-3">
+        <div :style="`background-image: url(${event.coverImg})`" class=" event-card col-5">
+
+
         </div>
-        <div class="ms-5 col-7 text-black">
-            {{ event.title }}
-            {{ event.startTime }}
-            {{ event.capacity }}
-            {{ event._id }}
-            <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}</h5>
+        <div class="col-7  text-black">
+            <div class="row justify-content-end">
+                <button v-if="creator" class="btn btn-circle bg-light col-4" data-bs-toggle="modal"
+                    data-bs-target="#edit-event-modal">
+                    <i class="mdi mdi-pencil fs-3 text-warning"></i>
+                </button>
+                <div class="col-12">
+                    <h3>Title: {{ event.title }}</h3>
+                    <h5>StartTime: {{ event.startTime }}</h5>
+                    <h5>Capacity: {{ event.capacity }}</h5>
+                    <!-- <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}
+                    </h5> -->
 
-            This is the event creator {{ event.creatorId }}
-            Current account {{ account.id }}
-            Current event members {{ event.eventGoers }}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center p-3" v-if="account.id">
+            <div class="col-3" v-if="event.creatorId == account.id">
+                <!-- NOTE cancel event goes here -->
+                <button class="btn btn-danger">CancelEvent</button>
 
+            </div>
+            <!-- TODO if i'm the creator i shouldn't see the join event -->
+            <div class="col-4"
+                v-if="groupMembers.some(gm => gm.accountId === account.id) && event.creatorId != account.id">
+                <!-- if this is true then set to false  -->
+                <button v-if="!event.eventGoers.some(eg => eg.groupMemberId == account.id)" class="btn btn-success"
+                    @click="joinEvent(event._id, account)">
+                    <i class="mdi mdi-check">join event</i>
 
+                </button>
+                <button v-else class="btn btn-danger" @click="leaveEvent(event._id, account)">
+                    <i class="mdi mdi-cancel">
+                        leave event
+
+                    </i>
+                </button>
+            </div>
+        </div>
+        <div class="row bg-dark">
+            <div class="col-12" v-for="e in event.eventGoer">
+                <EventGoerCard :eventGoer="e" />
+
+            </div>
         </div>
     </div>
-    <div v-if="account.id">
-        <div v-if="creator">
-            <!-- NOTE cancel event goes here -->
-            cancel event
-        </div>
-        <div v-if="groupMembers.some(gm => gm.accountId === account.id)">
-            <!-- if this is true then set to false  -->
-            <button v-if="!event.eventGoers.some(eg => eg.groupMemberId == account.id)" class="btn btn-success"
-                @click="joinEvent(event._id, account.id)">
-                <i class="mdi mdi-check">join event</i>
 
-            </button>
-            <button v-else class="btn btn-success" @click="leaveEvent(event._id, account.id)">
-                <i class="mdi mdi-cancel">
-                    leave event
-
-                </i>
-            </button>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -105,5 +116,16 @@ export default {
 </script>
 
 <style>
+.event-card {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 60px;
+
+}
 </style>

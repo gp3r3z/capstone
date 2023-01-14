@@ -20,10 +20,8 @@
                 <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
             </div>
             <div class="col-5 p-3  rounded">
-                <div v-if="account.id == activeGroup.creatorId">
 
-                </div>
-                <div v-else-if="account.id && !foundMe && activeGroup.capacity > 0">
+                <div v-if="account.id && !foundMe && activeGroup.capacity > 0">
                     <button @click="joinGroup" class="btn btn-primary">Join</button>
                 </div>
                 <div v-else-if="foundMe">
@@ -35,7 +33,7 @@
             </div>
         </section>
         <!-- SECTION group members -->
-        <section class="row mx-4 p-2 rounded">
+        <section class="row mx-4 p-2 rounded bg-light mt-3">
             <span class="d-flex justify-content-center align-items-center fst-italic fw-bold text-white fs-4">Group
                 Members:</span>
             <div v-for="g in groupMembers">
@@ -47,8 +45,8 @@
         </section>
 
         <!-- SECTION Group Events Component -->
-        <section class="row bg-white mt-5 mx-5">
-            <div v-for="e in events" class="d-flex">
+        <section class="row mt-3 rounded">
+            <div v-for="e in events" class="col-4">
                 <GroupEvent :event="e" />
             </div>
         </section>
