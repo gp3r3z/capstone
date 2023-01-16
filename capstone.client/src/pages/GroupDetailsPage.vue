@@ -21,7 +21,7 @@
             </div>
             <div class="col-5 p-3  rounded">
 
-                <div v-if="account.id && !foundMe && activeGroup.capacity > 0">
+                <div v-if="account.id != activeGroup.creatorId && !foundMe && activeGroup.capacity > 0">
                     <button @click="joinGroup" class="btn btn-primary">Join</button>
                 </div>
                 <div v-else-if="foundMe">
