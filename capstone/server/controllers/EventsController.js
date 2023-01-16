@@ -57,7 +57,7 @@ export class EventsController extends BaseController {
 
     async leaveEvent(req, res, next) {
         try {
-            const events = await eventsService.leaveEvent(req.params.eventId, req.userInfo.id)
+            const events = await eventsService.leaveEvent(req.params.eventId, req.user.id)
             return res.send(events)
         } catch (error) {
             next(error)

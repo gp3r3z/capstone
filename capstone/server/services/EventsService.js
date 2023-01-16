@@ -61,7 +61,7 @@ class EventsService {
 
     }
 
-    async leaveEvent(eventId, userId) {
+    async leaveEvent(eventId, id) {
         const event = await dbContext.Event.findById(eventId)
         if (!event) throw new BadRequest(`no event at id: ${eventId}`)
         // FIXME working on correcting leave event
@@ -70,7 +70,7 @@ class EventsService {
 
         // @ts-ignore
 
-        await event.eventGoers.remove({ groupMemberId: userId })
+        await event.eventGoers.splice(id, 1)
 
         // @ts-ignore
         event.capacity++
@@ -78,7 +78,7 @@ class EventsService {
         // @ts-ignore
         await event.save()
 
-        logger.log('[SERVER: UPDATED]', event.eventGoers)
+        logger.log('[SERVER: UPDATED]', event)
 
         return 'you left the event'
 

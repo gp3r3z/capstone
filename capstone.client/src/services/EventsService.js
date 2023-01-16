@@ -29,8 +29,21 @@ class EventsService {
 
     async joinEvent(eventId, accountId) {
         const res = await api.post(`api/events/${eventId}/events`, accountId)
-        logger.log('joined event', res.data)
 
+        let eventToUpdate = await this.getEventById(eventId)
+
+        eventToUpdate.eventGoers.push(accountId)
+
+        logger.log('Here updatedEvent to update', eventToUpdate)
+
+    }
+    async leaveEvent(eventId, id) {
+        const res = await api.delete(`api/events/${eventId}/leave`)
+        logger.log('Left event', res.data)
+
+        let eventToUpdate = await this.getEventById(eventId)
+
+        await eventToUpdate.eventGoers.splice(id, 1)
 
     }
 

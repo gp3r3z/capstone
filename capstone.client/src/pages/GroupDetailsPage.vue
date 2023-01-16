@@ -25,7 +25,7 @@
                     <button @click="joinGroup" class="btn btn-primary">Join</button>
                 </div>
                 <div v-else-if="foundMe">
-                    <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave</button>
+                    <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave Group</button>
                 </div>
                 <div v-else-if="!foundMe && activeGroup.capacity == 0">
                     <button class="btn btn-danger ms-3" disabled>Group is full</button>

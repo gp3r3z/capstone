@@ -1,5 +1,5 @@
 <template>
-    <h3>{{ eventGoer.name }}</h3>
+    <h3 class="mt-3">{{ eventGoer.name }}</h3>
 </template>
 
 

@@ -11,7 +11,7 @@ class GroupsService {
 
     async getGroupMembersByGroupId(groupId) {
         const res = await api.get(`api/groups/${groupId}/groupmember`)
-        // logger.log('getting group members by group id', res.data)
+        logger.log('getting group members by group id', res.data)
         AppState.groupMembers = res.data
     }
     async getEventsByGroupId(groupId) {

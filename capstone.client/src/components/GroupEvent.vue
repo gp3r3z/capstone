@@ -1,21 +1,19 @@
 <template>
-    <div @click="getEventById(event._id)" class="row bg-light rounded ms-3">
+    <div @click="getEventById(event._id)" class="row bg-light rounded ms-3 elevation-3">
         <div :style="`background-image: url(${event.coverImg})`" class=" event-card col-5">
-
-
         </div>
-        <div class="col-7  text-black">
+        <div class="col-7   text-black">
             <div class="row justify-content-end">
                 <button v-if="creator" class="btn btn-circle bg-light col-4" data-bs-toggle="modal"
                     data-bs-target="#edit-event-modal">
-                    <i class="mdi mdi-pencil fs-3 text-warning"></i>
+                    <i class="mdi mdi-pencil fs-4 text-warning"></i>
                 </button>
                 <div class="col-12">
                     <h3>Title: {{ event.title }}</h3>
                     <h5>StartTime: {{ event.startTime }}</h5>
                     <h5>Capacity: {{ event.capacity }}</h5>
-                    <!-- <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}
-                    </h5> -->
+                    <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}
+                    </h5>
 
                 </div>
             </div>
@@ -26,25 +24,25 @@
                 <button class="btn btn-danger">CancelEvent</button>
 
             </div>
-            <!-- TODO if i'm the creator i shouldn't see the join event -->
             <div class="col-4"
                 v-if="groupMembers.some(gm => gm.accountId === account.id) && event.creatorId != account.id">
-                <!-- if this is true then set to false  -->
-                <button v-if="!event.eventGoers.some(eg => eg.groupMemberId == account.id)" class="btn btn-success"
+
+                <button v-if="!event.eventGoers.some(eg => eg.id == account.id)" class="btn btn-success"
                     @click="joinEvent(event._id, account)">
                     <i class="mdi mdi-check">join event</i>
 
                 </button>
-                <button v-else class="btn btn-danger" @click="leaveEvent(event._id, account)">
+                <button v-else class="btn btn-danger" @click="leaveEvent(event._id, account.id)">
                     <i class="mdi mdi-cancel">
                         leave event
+                        {{ event.eventGoers.some(eg => eg.id == account.id) }}
 
                     </i>
                 </button>
             </div>
         </div>
-        <div class="row bg-dark">
-            <div class="col-12" v-for="e in event.eventGoer">
+        <div class="row bg-dark m-0 p-3">
+            <div class="col-1 event-goer rounded-circle bg-secondary mt-3 elevation-3  " v-for="e in event.eventGoers">
                 <EventGoerCard :eventGoer="e" />
 
             </div>
@@ -87,6 +85,11 @@ export default {
             }
         }
 
+        watchEffect(() => {
+            AppState.events.eventGoers
+
+
+        });
 
         return {
             account: computed(() => AppState.account),
@@ -101,6 +104,16 @@ export default {
                 try {
                     await eventsService.joinEvent(eventId, accountId)
                     Pop.toast('Event joined!', 'success')
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(('[ERROR]'), error.message)
+                }
+            },
+
+            async leaveEvent(eventId, accountId) {
+                try {
+                    await eventsService.leaveEvent(eventId, accountId)
+                    Pop.toast('Event Left!', 'success')
                 } catch (error) {
                     logger.error(error)
                     Pop.error(('[ERROR]'), error.message)
@@ -127,5 +140,10 @@ export default {
     height: 50px;
     border-radius: 60px;
 
+}
+
+.event-goer {
+    height: 75px;
+    width: 75px;
 }
 </style>
