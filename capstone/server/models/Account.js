@@ -8,7 +8,7 @@ export const AccountSchema = new Schema(
     name: { type: String, required: true },
     picture: { type: String, default: '' },
     bio: { type: String, default: '' },
-    platform: { type: Object, default: '' },
+    platform: { type: Object, default: { playstation: false, xbox: false, nintendo: false, pc: false } },
     coverImg: { type: String, default: '' },
 
     // NOTE If you wish to add additional properties do so here

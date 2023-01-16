@@ -27,33 +27,34 @@
               <textarea v-model="editable.bio" required class="form-control" id="bio" rows="3"></textarea>
             </div>
             <span class="form-check form-check-inline">
-              <input class="form-check-input selectable" v-model="platform.playstation"
-                :checked="editable.platform.playstation" type="checkbox" name="PLAYSTATION" id="PLAYSTATION">
-              <label class="form-check-label" for="PLAYSTATION">
-                PLAYSTATION
+              <input class="form-check-input selectable" v-model="editable.platform.nintendo"
+                :checked="editable.platform.nintendo" type="checkbox" name="NINTENDO" id="NINTENDO">
+              <label class="form-check-label" for="NINTENDO">
+                NINTENDO
               </label>
             </span>
             <span class="form-check form-check-inline">
-              <input class="form-check-input selectable" v-model="platform.xbox" :checked="editable.platform.xbox"
-                type="checkbox" name="XBOX" id="XBOX">
-              <label class="form-check-label" for="XBOX">
-                XBOX
-              </label>
-            </span>
-            <span class="form-check form-check-inline">
-              <input class="form-check-input selectable" v-model="platform.pc" :checked="editable.platform.pc"
+              <input class="form-check-input selectable" v-model="editable.platform.pc" :checked="editable.platform.pc"
                 type="checkbox" name="PC" id="PC">
               <label class="form-check-label" for="PC">
                 PC
               </label>
             </span>
             <span class="form-check form-check-inline">
-              <input class="form-check-input selectable" v-model="platform.nintendo"
-                :checked="editable.platform.nintendo" type="checkbox" name="NINTENDO" id="NINTENDO">
-              <label class="form-check-label" for="NINTENDO">
-                NINTENDO
+              <input class="form-check-input selectable" v-model="editable.platform.playstation"
+                :checked="editable.platform.playstation" type="checkbox" name="PLAYSTATION" id="PLAYSTATION">
+              <label class="form-check-label" for="PLAYSTATION">
+                PLAYSTATION
               </label>
             </span>
+            <span class="form-check form-check-inline">
+              <input class="form-check-input selectable" v-model="editable.platform.xbox"
+                :checked="editable.platform.xbox" type="checkbox" name="XBOX" id="XBOX">
+              <label class="form-check-label" for="XBOX">
+                XBOX
+              </label>
+            </span>
+
             <div class="row justify-content-end">
               <button class="btn btn-success col-3" type="submit">Submit</button>
             </div>
@@ -92,11 +93,11 @@ import { accountService } from '../services/AccountService.js'
 
 
 
+
 export default {
   setup() {
 
-    const platform = ref({})
-    const editable = ref({})
+    const editable = ref({ platform: { playstation: Boolean, xbox: Boolean, pc: Boolean, nintendo: Boolean } })
 
     async function getMyGroups() {
       try {
@@ -116,26 +117,29 @@ export default {
     }
 
 
+
     watchEffect(() => {
+      if (AppState.account.id) {
+        editable.value = { ...AppState.account }
+
+      }
+
       getMyGroups()
       getMyEvents()
       AppState.activeEvent
 
-      if (AppState.account.id) {
-        editable.value = { ...AppState.account }
-      }
-
     })
+
     return {
       account: computed(() => AppState.account),
+      platform: computed(() => AppState.account.platform),
       myGroups: computed(() => AppState.myGroups),
       myEvents: computed(() => AppState.myEvents),
       editable,
-      platform,
 
       async editAccount() {
         try {
-          editable.value.platform = platform.value
+          // editable.value.platform = platform.value
           logger.log('This is the edit request from the FE', editable.value)
           await accountService.editAccount(editable.value)
         } catch (error) {
