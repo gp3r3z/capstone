@@ -12,24 +12,53 @@
         </section>
 
         <!-- SECTION group info -->
-        <section class="row justify-content-around mt-3">
+        <section class="row justify-content-center mt-3">
             <div class="col-6 bg-dark p-3 rounded">
-                <h2>Group: {{ activeGroup.groupName }}</h2>
-                <p>Description: {{ activeGroup.description }}</p>
-                <p>Capacity: {{ activeGroup.capacity }}</p>
-                <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
+                <section>
+                    <h2>Group: {{ activeGroup.groupName }}</h2>
+                    <p>Description: {{ activeGroup.description }}</p>
+                    <p>Capacity: {{ activeGroup.capacity }}</p>
+                    <p>SkillLevel: {{ activeGroup.skillLevel }}</p>
+                </section>
+                <section>
+                    <div v-if="account.id != activeGroup.creatorId && !foundMe && activeGroup.capacity > 0">
+                        <button @click="joinGroup" class="btn btn-primary">Join</button>
+                    </div>
+                    <div v-else-if="foundMe">
+                        <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave Group</button>
+                    </div>
+                    <div v-else-if="!foundMe && activeGroup.capacity == 0">
+                        <button class="btn btn-danger ms-3" disabled>Group is full</button>
+                    </div>
+                </section>
             </div>
-            <div class="col-5 p-3  rounded">
+            <div class="col-5 ">
+                <!-- SECTION GROUP Leader -->
+                <section class="row p-2 justify-content-center">
+                    <span
+                        class="d-flex justify-content-center align-items-center fst-italic fw-bold text-white fs-4">Group
+                        Leader:</span>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <div ontouchstart=" this.classList.toggle('hover');">
+                            <div class="container-creator">
+                                <div class="front-creator"
+                                    :style="`background-image: url(${activeGroupCreator.picture ? activeGroupCreator.picture : activeGroupCreator.coverImg})`">
+                                    <div class="inner-creator">
+                                        <p>{{ activeGroupCreator.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="back-creator">
+                                    <div class="inner-creator">
+                                        <p>{{ activeGroupCreator.bio ? activeGroupCreator.bio : 'User has no Bio' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div v-if="account.id != activeGroup.creatorId && !foundMe && activeGroup.capacity > 0">
-                    <button @click="joinGroup" class="btn btn-primary">Join</button>
-                </div>
-                <div v-else-if="foundMe">
-                    <button @click="leaveGroup(foundMe.id)" class="btn btn-danger ms-3">Leave Group</button>
-                </div>
-                <div v-else-if="!foundMe && activeGroup.capacity == 0">
-                    <button class="btn btn-danger ms-3" disabled>Group is full</button>
-                </div>
+                    </div>
+
+                </section>
+
             </div>
         </section>
         <!-- SECTION group members -->
@@ -130,6 +159,7 @@ import { commentsService } from '../services/CommentsService.js'
 import Comment from '../components/Comment.vue';
 import GroupEvent from '../components/GroupEvent.vue';
 import { GroupHandler } from '../handler/GroupHandler.js';
+import { accountService } from '../services/AccountService.js';
 
 
 export default {
@@ -173,11 +203,14 @@ export default {
                 Pop.error(('[ERROR]'), error.message)
             }
         }
+
         watchEffect(() => {
+
             getGroupById();
             getGroupMembersByGroupId();
             getEventsByGroupId();
-            getCommentsByGroupId()
+            getCommentsByGroupId();
+            // getGroupCreator(activeGroup.creatorId);
             AppState.activeEvent;
 
 
@@ -186,6 +219,7 @@ export default {
         return {
             editable,
             activeGroup: computed(() => AppState.activeGroup),
+            activeGroupCreator: computed(() => AppState.activeGroupCreator),
             foundMe: computed(() => AppState.groupMembers.find(g => g.accountId == AppState.account.id)),
             account: computed(() => AppState.account),
             groupMembers: computed(() => AppState.groupMembers),
@@ -417,6 +451,143 @@ export default {
 }
 
 .front .inner span {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Montserrat';
+    font-weight: 300;
+}
+
+.container-creator {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+.front-creator,
+.back-creator {
+    background-size: cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background-position: center;
+    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    text-align: center;
+    min-height: 320px;
+    width: 320px;
+    height: auto;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.back-creator {
+    background: #97c0df;
+    background: -webkit-linear-gradient(45deg, #016ec2 0%, #596a72 100%);
+    background: -o-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+    background: linear-gradient(45deg, #555e64 0%, #596a72 100%);
+}
+
+.front-creator:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    display: block;
+    opacity: .6;
+    background-color: #000;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.container-creator:hover .front,
+.container-creator:hover .back {
+    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.back-creator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.inner-creator {
+    -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
+    transform: translateY(-50%) translateZ(60px) scale(0.94);
+    top: 50%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 1px solid transparent;
+    -webkit-perspective: inherit;
+    perspective: inherit;
+    z-index: 2;
+}
+
+.container-creator .back-creator {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.container-creator .front-creator {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.container-creator:hover .back-creator {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.container-creator:hover .front-creator {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.front-creator .inner-creator p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.front-creator .inner-creator p:after {
+    content: '';
+    width: rem;
+    height: 2px;
+    position: absolute;
+    background: #C6D4DF;
+    display: block;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -.75rem;
+}
+
+.front-creator .inner-creator span {
     color: rgba(255, 255, 255, 0.7);
     font-family: 'Montserrat';
     font-weight: 300;

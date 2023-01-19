@@ -14,10 +14,12 @@ export const AppState = reactive({
 
   groups: [],
   activeGroup: [],
+  activeGroupCreator: [],
 
   groupMembers: [],
   events: [],
   eventMember: [],
+  eventCreator: [],
 
   activeEvent: [],
 

@@ -9,6 +9,7 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .get('/:id', this.getCreator)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/getMyEvents', this.getMyEventsByCreatorId)
@@ -19,6 +20,16 @@ export class AccountController extends BaseController {
   async getUserAccount(req, res, next) {
     try {
       const account = await accountService.getAccount(req.userInfo)
+      res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getCreator(req, res, next) {
+    try {
+
+      const account = await accountService.getGroupCreator(req.params.id)
       res.send(account)
     } catch (error) {
       next(error)
@@ -44,7 +55,7 @@ export class AccountController extends BaseController {
   }
   async editAccount(req, res, next) {
     try {
- 
+
       const account = await accountService.editAccount(req.userInfo.id, req.body)
       res.send(account)
     } catch (error) {

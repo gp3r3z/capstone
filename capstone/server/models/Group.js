@@ -17,3 +17,10 @@ export const GroupSchema = new Schema({
 
 
 }, { timestamps: true, toJSON: { virtuals: true } })
+
+GroupSchema.virtual('profile', {
+    localField: 'creatorId',
+    ref: 'Account',
+    foreignField: '_id',
+    justOne: true
+})

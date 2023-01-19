@@ -7,7 +7,7 @@ import { api, rawgAPI } from "./AxiosService.js"
 class GamesService {
 
     async getGames() {
-        const res = await rawgAPI.get('games?page_size=50')
+        const res = await rawgAPI.get('games?page_size=30')
         logger.log('getting games', res.data)
         AppState.games = res.data.results.map(g => new Game(g))
         AppState.nextPage = res.data.next

@@ -7,6 +7,13 @@ class GroupsService {
         const res = await api.get(`api/groups/${id}`)
         // logger.log('Getting group by Id ', id, '\n Response ', res.data)
         AppState.activeGroup = res.data
+        const activeGroupCreatorId = AppState.activeGroup.creatorId
+
+        const resAccount = await api.get(`/account/${activeGroupCreatorId}`)
+        logger.log('Here is the activeCreator for groups', resAccount.data)
+        AppState.activeGroupCreator = resAccount.data
+
+
     }
 
     async getGroupMembersByGroupId(groupId) {
@@ -16,8 +23,10 @@ class GroupsService {
     }
     async getEventsByGroupId(groupId) {
         const res = await api.get(`api/events/${groupId}/group`)
-        // logger.log('getting events by group id', res.data)
+        logger.log('getting events by group id', res.data)
         AppState.events = res.data
+
+       
     }
     async joinGroup(body) {
         logger.log('Join group by groupId ', body)

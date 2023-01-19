@@ -61,6 +61,14 @@ class AccountService {
     return account
   }
 
+  async getGroupCreator(user) {
+    logger.log('[SERVER getting creator]', user)
+    let account = await dbContext.Account.findOne({
+      _id: user
+    })
+    return account
+  }
+
   /**
    * Updates account with the request body, will only allow changes to editable fields
    *  @param {any} user Auth0 user object

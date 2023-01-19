@@ -13,6 +13,7 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+
   async getMyGroups() {
     try {
       const res = await api.get('/account/getMyGroups')

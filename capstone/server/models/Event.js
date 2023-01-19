@@ -13,3 +13,9 @@ export const EventSchema = new Schema({
     isCanceled: { type: Boolean, required: true, default: false },
     eventGoers: { type: Schema.Types.Array }
 })
+EventSchema.virtual('profile', {
+    localField: 'creatorId',
+    ref: 'Account',
+    foreignField: '_id',
+    justOne: true
+})
