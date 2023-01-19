@@ -66,7 +66,7 @@ export default {
 
         watchEffect(() => {
             if (AppState.activeEvent) {
-                logger.log('here is the active event in the watch effect', AppState.activeEvent[0])
+                // logger.log('here is the active event in the watch effect', AppState.activeEvent[0])
                 editable.value = { ...AppState.activeEvent[0] }
             }
 

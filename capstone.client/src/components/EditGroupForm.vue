@@ -92,7 +92,7 @@ export default {
         }
         watchEffect(() => {
             if (AppState.activeGroup) {
-                logger.log('here is the active group in the watch effect', AppState.activeGroup)
+                // logger.log('here is the active group in the watch effect', AppState.activeGroup)
                 editable.value = { ...AppState.activeGroup }
             }
 

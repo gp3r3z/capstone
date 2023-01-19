@@ -74,7 +74,7 @@ export default {
 
 
 
-    setup() {
+    setup(props) {
         const route = useRoute()
         async function getEventById(eventId) {
             try {
@@ -85,11 +85,7 @@ export default {
             }
         }
 
-        watchEffect(() => {
-            AppState.events.eventGoers
 
-
-        });
 
         return {
             account: computed(() => AppState.account),

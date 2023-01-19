@@ -64,23 +64,19 @@ class EventsService {
     async leaveEvent(eventId, id) {
         const event = await dbContext.Event.findById(eventId)
         if (!event) throw new BadRequest(`no event at id: ${eventId}`)
-        // FIXME working on correcting leave event
-        // @ts-ignore
-        // if (event.creatorId.toString() != userId) throw new Forbidden('cannot leave an event you were never attending')
 
         // @ts-ignore
-
         await event.eventGoers.splice(id, 1)
 
         // @ts-ignore
         event.capacity++
 
         // @ts-ignore
-        await event.save()
+         event.save()
 
         logger.log('[SERVER: UPDATED]', event)
 
-        return 'you left the event'
+        return event
 
     }
     async getMyEventsByCreatorId(id) {
