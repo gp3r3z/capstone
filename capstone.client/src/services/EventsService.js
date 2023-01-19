@@ -36,6 +36,8 @@ class EventsService {
     async leaveEvent(eventId, id) {
         const res = await api.delete(`api/events/${eventId}/leave`)
         logger.log('FE Left event', res.data)
+
+        //NOTE this makes makes the the event active might cause bugs 
         const eventToUpdate = await this.getEventById(eventId)
 
         logger.log('This is the Appstate event', eventToUpdate)
