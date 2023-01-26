@@ -39,12 +39,33 @@
     </div>
 
     <section class="row justify-content-center mt-5">
-      <div class="col-5 bar text-white text-center elevation-3">
-        <h3 class="p-1">Filter By Genre</h3>
+      <div class="col-6  text-white text-center elevation-3">
+        <div class="row">
+          <div class="col-10 bar">
+            <h3 class="p-1">Filter By Genre</h3>
+          </div>
+          <div class="col-2 rounded bg-dark">
+            <button @click="searchGamesToggle(searchToggle)" class="btn"><i
+                class="mdi mdi-magnify fs-1 text-center"></i></button>
+          </div>
+        </div>
       </div>
+      <div v-if="searchToggle" class="col-12">
+
+        <form @submit.prevent="searchQuery(searchResults)" class="row justify-content-center mt-3">
+          <input v-model="searchResults" type="text" class=" col-4" aria-label="Default"
+            aria-describedby="inputGroup-sizing-default" minlength="3">
+          <div class="input-group-append col-1 text-center">
+            <button class="input-group-text btn btn-dark" id="">Search</button>
+          </div>
+        </form>
+      </div>
+
+
+
     </section>
 
-    <section class="row p-3 mx-2 my-4 justify-content-center">
+    <section class="row p-3 mx-2 my-2 justify-content-center">
       <div class="col-12 d-flex justify-content-between">
         <button @click="getGames()" class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
             class="button-82-edge"></span><span class="button-82-front text">All</span></button>
@@ -105,11 +126,13 @@ import Pop from '../utils/Pop';
 import { gamesService } from '../services/GamesService.js'
 import { AppState } from '../AppState';
 import GameCard from '../components/GameCard.vue';
+import { logger } from '../utils/Logger.js';
 
 
 export default {
   setup() {
     const filterResults = ref("");
+    let searchResults = ref("")
 
     const route = useRoute();
     async function getGames() {
@@ -153,12 +176,33 @@ export default {
     });
     return {
       getGamesByGenres,
+      searchResults,
       getGames,
+      searchToggle: computed(() => AppState.searchToggle),
       switchPage,
       games: computed(() => AppState.games),
       prevPage: computed(() => AppState.prevPage),
       nextPage: computed(() => AppState.nextPage),
       route,
+      async searchGamesToggle(searchToggle) {
+        try {
+          AppState.searchToggle = !searchToggle
+          // logger.log(searchToggle)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+      async searchQuery(input) {
+        try {
+          await gamesService.searchQuery(input)
+          searchResults.value = ""
+          AppState.searchToggle = false
+          Pop.success('Search results updated')
+        } catch (error) {
+          Pop.error(error)
+
+        }
+      }
 
     };
   },

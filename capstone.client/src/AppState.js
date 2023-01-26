@@ -27,5 +27,7 @@ export const AppState = reactive({
   myGroups: [],
   myEvents: [],
 
-  comments: []
+  comments: [],
+
+  searchToggle: false
 })
