@@ -7,3 +7,10 @@ export const GroupCommentSchema = new Schema({
     description: { type: String, required: true },
 
 })
+
+GroupCommentSchema.virtual('profile', {
+    localField: 'creatorId',
+    ref: 'Account',
+    foreignField: '_id',
+    justOne: true
+})

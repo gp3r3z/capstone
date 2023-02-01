@@ -97,40 +97,38 @@
             <button v-if="foundMe || account.id == activeGroup.creatorId" @click="enterGroupChat" class=" btn-primary float-left btn rounded-circle bg-dark d-flex justify-content-start
                 align-items-start" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                 aria-controls="offcanvasExample">
-                <i class="mdi mdi-chat fs-1"></i>
+                <i class="mdi mdi-chat fs-2 ms-1"></i>
             </button>
 
         </section>
         <!-- SECTION Group Chat -->
-        <!-- <button v-if="foundMe || account.id == activeGroup.creatorId" @click="enterGroupChat" class="btn btn-primary"
-            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample">
-            Group Chat
-        </button> -->
-        <div class="offcanvas offcanvas-start bg-secondary" tabindex="-1" id="offcanvasExample"
+        <div class="offcanvas offcanvas-start bg-secondary " tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">Group Chat</h5>
                 <button @click="leaveGroupChat" type="button" class="btn-close" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-                <div>
-                    <section class="row">
-                        <div v-for="c in comments" class="col-11">
-                            <Comment :comment="c" />
-                        </div>
-                        <div>
-                            <form @submit.prevent="postComment()">
-                                <textarea v-model="editable.description" name="Chat...." id="" cols="30"
-                                    rows="10"></textarea>
-                                <button class="btn-btn-primary">
+            <div class="offcanvas-body comment-body">
+                <section class="row ">
+                    <div v-for="c in comments">
+                        <Comment :comment="c" />
+                    </div>
+                    <div class="comment-footer ">
+                        <form @submit.prevent="postComment()" class="row">
+                            <div class="col-10">
+                                <textarea class="form-control m-0" v-model="editable.description" name="Chat...." id=""
+                                    cols="10" rows="1"></textarea>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-primary">
                                     <i class="mdi mdi-plus"></i>
                                 </button>
-                            </form>
-                        </div>
-                    </section>
-                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
             </div>
         </div>
 
@@ -591,6 +589,15 @@ export default {
     color: rgba(255, 255, 255, 0.7);
     font-family: 'Montserrat';
     font-weight: 300;
+}
+
+.comment-body {
+    position: relative
+}
+
+.comment-footer {
+    position: absolute;
+    bottom: 25px;
 }
 
 @media screen and (max-width: 64rem) {

@@ -199,7 +199,8 @@ export default {
           AppState.searchToggle = false
           Pop.success('Search results updated')
         } catch (error) {
-          Pop.error(error)
+          Pop.error("Unable to find game by that query. Try another game")
+          logger.log(error)
 
         }
       }
