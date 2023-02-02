@@ -6,7 +6,8 @@
 
       </div>
     </div>
-    <div class="row justify-content-center mt-4 mx-3">
+    <!-- SECTION top games carousel  -->
+    <div class="row top-games-carousel justify-content-center mt-4 mx-3">
       <div class="col-11">
         <div id="carouselExampleFade" class="carousel slide carousel-fade elevation-3" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -15,12 +16,10 @@
                 alt="...">
             </div>
             <div class="carousel-item">
-              <img
-                src="https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-1520x800.png"
-                class="d-block carousel-img rounded" alt="...">
+              <img src="https://wallpapercave.com/wp/wp7438615.jpg" class="d-block carousel-img rounded" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+              <img src="https://cdn.akamai.steamstatic.com/steam/apps/306130/capsule_616x353.jpg?t=1674679947"
                 class="d-block carousel-img rounded" alt="...">
             </div>
           </div>
@@ -56,7 +55,9 @@
           <input v-model="searchResults" type="text" class=" col-4" aria-label="Default"
             aria-describedby="inputGroup-sizing-default" minlength="3">
           <div class="input-group-append col-1 text-center">
-            <button class="input-group-text btn btn-dark" id="">Search</button>
+
+            <button class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
+                class="button-82-edge"></span><span class="button-82-front text">Search</span></button>
           </div>
         </form>
       </div>
@@ -262,7 +263,7 @@ export default {
 }
 
 .carousel-img {
-  height: 65vh;
+  height: 35vh;
   width: 100%;
 }
 
@@ -364,6 +365,10 @@ export default {
 
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
+}
+
+.top-games-carousel {
+  min-height: 25vh;
 }
 </style>
 

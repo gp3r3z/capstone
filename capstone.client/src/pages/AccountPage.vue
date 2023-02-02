@@ -68,7 +68,7 @@
     <section class="row mt-3">
       <h3 class="border-bottom text-center">MyGroups</h3>
       <div v-for="g in myGroups" class="bg-danger">
-        <GroupRowCard :group="g" />
+        <GroupCard :group="g" />
       </div>
     </section>
     <section class="row mt-3">

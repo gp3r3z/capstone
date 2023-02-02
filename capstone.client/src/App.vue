@@ -2,7 +2,7 @@
   <header class="navbar-dark sticky-top">
     <Navbar />
   </header>
-  <main class="bg-img" :style="`background-image: url(https://images4.alphacoders.com/109/1091511.jpg)`">
+  <main class="bg-img">
     <router-view />
   </main>
   <footer>
@@ -50,6 +50,8 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-color: #FFFFFF;
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #fa0707 40%, #3B4371 100%);
 }
 
 .main-color {
@@ -57,7 +59,7 @@ export default {
 }
 
 .navbar-dark {
-  background-color: #e6b6e673;
+  background-color: #3b437185;
   backdrop-filter: blur(5px)
 }
 

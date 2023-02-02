@@ -35,7 +35,7 @@
             <div class="row mt-3 justify-content-center">
                 <!-- SECTION GROUPS FOR GAME -->
                 <div v-for="g in groups" class="col-8">
-                    <GroupRowCard :group="g" />
+                    <GroupCard :group="g" />
                 </div>
             </div>
 
@@ -61,8 +61,6 @@ import { AppState } from '../AppState.js';
 import { onMounted, computed } from 'vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
-import { groupsService } from '../services/GroupsService.js';
-import GroupRowCard from '../components/GroupRowCard.vue';
 
 export default {
     setup() {
@@ -94,7 +92,7 @@ export default {
             groups: computed(() => AppState.groups),
         };
     },
-    components: { GroupRowCard }
+
 }
 </script>
 
