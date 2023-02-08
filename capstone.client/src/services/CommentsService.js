@@ -13,7 +13,6 @@ class CommentsService {
     async postComment(commentData, groupId) {
         const res = await api.post(`api/comments/${groupId}`, commentData)
         logger.log('comment data', res.data)
-        // AppState.comments.push(res.data)
     }
 }
 

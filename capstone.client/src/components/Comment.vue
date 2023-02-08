@@ -9,7 +9,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-3 filter-row ">
-                <img src="https://thiscatdoesnotexist.com" class="img-fluid rounded-circle" alt="">
+                <img :src="account.picture" class="img-fluid rounded-circle" alt="">
             </div>
         </div>
 
@@ -46,7 +46,7 @@ export default {
         return {
             account: computed(() => AppState.account),
             activeGroupCreator: computed(() => AppState.activeGroupCreator),
-            groupMembers: computed(() => AppState.groupMembers),
+            groupMembers: computed(() => AppState.groupMembers)
         };
 
     }

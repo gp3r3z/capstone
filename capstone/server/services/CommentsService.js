@@ -5,7 +5,7 @@ class CommentsService {
     async createComment(body) {
         // const groupComment = await groupsService.getGroupById(body.groupId)
 
-        const comment = await dbContext.GroupComment.create(body)
+        const comment = await (await dbContext.GroupComment.create(body)).populate('profile')
         return comment
     }
     async getCommentsByGroupId(groupId) {

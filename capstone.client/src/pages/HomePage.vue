@@ -37,25 +37,17 @@
       </div>
     </div>
 
-    <section class="row justify-content-center mt-5">
-      <div class="col-6  text-white text-center elevation-3">
-        <div class="row">
-          <div class="col-10 bar">
-            <h3 class="p-1">Filter By Genre</h3>
-          </div>
-          <div class="col-2 rounded bg-dark">
-            <button @click="searchGamesToggle(searchToggle)" class="btn"><i
-                class="mdi mdi-magnify fs-1 text-center"></i></button>
-          </div>
-        </div>
+    <section class="row justify-content-center m-3">
+      <div class="col-2 rounded bg-dark d-flex align-items-center">
+        <button @click="searchGamesToggle(searchToggle)" class="btn"><i class="mdi mdi-magnify fs-1"></i></button>
+        <h3>Search</h3>
       </div>
       <div v-if="searchToggle" class="col-12">
-
         <form @submit.prevent="searchQuery(searchResults)" class="row justify-content-center mt-3">
-          <input v-model="searchResults" type="text" class=" col-4" aria-label="Default"
-            aria-describedby="inputGroup-sizing-default" minlength="3">
+          <input v-model="searchResults" type="text" placeholder="Search by Game Name" class=" col-4"
+            aria-label="Default" aria-describedby="inputGroup-sizing-default" minlength="3">
           <div class="input-group-append  text-center">
-            <button class="button-82-pushable " role="button"><span class="button-82-shadow"></span><span
+            <button class="button-82-pushable mt-3 " role="button"><span class="button-82-shadow"></span><span
                 class="button-82-edge"></span><span class="button-82-front text">Search</span></button>
           </div>
         </form>
@@ -64,7 +56,11 @@
 
 
     </section>
-
+    <div class="row justify-content-center mt-2">
+      <div class="col-8">
+        <h2 class="p-2 text-center bar">Filter By Genre</h2>
+      </div>
+    </div>
     <section class="row p-3 mx-2 my-2 justify-content-around">
 
       <button @click="getGames()" class="button-82-pushable col-2" role="button"><span
@@ -250,7 +246,6 @@ export default {
   position: relative;
   padding: 12px 27px;
   border-radius: 12px;
-  font-size: 1.1rem;
   color: rgb(255, 255, 255);
   background: #886a6a9e;
   backdrop-filter: blur(5px);

@@ -47,7 +47,8 @@
                                         <p>{{ activeGroupCreator.name }}</p>
                                     </div>
                                 </div>
-                                <div class="back-creator">
+                                <div class="back-creator"
+                                    :style="`background-image: url(${activeGroupCreator.picture ? activeGroupCreator.picture : activeGroupCreator.coverImg})`">
                                     <div class="inner-creator">
                                         <p>{{ activeGroupCreator.bio ? activeGroupCreator.bio : 'User has no Bio' }}</p>
                                     </div>
@@ -484,7 +485,7 @@ export default {
 }
 
 .back-creator {
-    background: #97c0df;
+    background: #97c0df00;
     background: -webkit-linear-gradient(45deg, #016ec2 0%, #596a72 100%);
     background: -o-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
     background: linear-gradient(45deg, #555e64 0%, #596a72 100%);
