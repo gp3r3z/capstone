@@ -2,13 +2,13 @@
     <div class="container-fluid bg-img" :style="`background-image: url(${activeGame.bgImgAdditional})`">
         <!-- SECTION Game Details   -->
         <section class="row justify-content-around align-items-center">
-            <div class="col-5">
-                <div class="row">
-                    <h2 class="p-2 gamecard-style text-center rounded">{{ activeGame.name }}</h2>
+            <div class="col-6">
+                <div class="row justify-content-center mt-3">
+                    <h2 class="col-10 p-2 gamecard-style text-center rounded">{{ activeGame.name }}</h2>
                 </div>
                 <img class="game-img mt-3 rounded elevation-5" :src="activeGame.bgImg" />
             </div>
-            <div class="col-6  elevation-5 rounded  gamecard-style mt-3">
+            <div class="col-5  elevation-5 rounded  gamecard-style mt-3">
                 <p class="p-3 ">{{ activeGame.description_R }}</p>
                 <p>Released {{ activeGame.released }} Genre:{{ activeGame.genre }} </p>
                 <p>

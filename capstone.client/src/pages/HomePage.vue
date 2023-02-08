@@ -1,6 +1,6 @@
 <template>
   <section class="container-fluid bg-img">
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-3">
       <div class="col-5 rounded blur text-white text-center elevation-3">
         <h3 class="p-1">Top Games</h3>
 
@@ -54,9 +54,8 @@
         <form @submit.prevent="searchQuery(searchResults)" class="row justify-content-center mt-3">
           <input v-model="searchResults" type="text" class=" col-4" aria-label="Default"
             aria-describedby="inputGroup-sizing-default" minlength="3">
-          <div class="input-group-append col-1 text-center">
-
-            <button class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
+          <div class="input-group-append  text-center">
+            <button class="button-82-pushable " role="button"><span class="button-82-shadow"></span><span
                 class="button-82-edge"></span><span class="button-82-front text">Search</span></button>
           </div>
         </form>
@@ -66,33 +65,43 @@
 
     </section>
 
-    <section class="row p-3 mx-2 my-2 justify-content-center">
-      <div class="col-12 d-flex justify-content-between">
-        <button @click="getGames()" class="button-82-pushable" role="button"><span class="button-82-shadow"></span><span
-            class="button-82-edge"></span><span class="button-82-front text">All</span></button>
-        <button @click="getGamesByGenres('shooter')" class="button-82-pushable" role="button"><span
-            class="button-82-shadow"></span><span class="button-82-edge"></span><span
-            class="button-82-front text">FPS</span></button>
-        <button @click="getGamesByGenres('strategy')" class="button-82-pushable" role="button"><span
-            class="button-82-shadow"></span><span class="button-82-edge"></span><span
-            class="button-82-front text">Strategy</span></button>
-        <button @click="getGamesByGenres('role-playing-games-rpg')" class="button-82-pushable" role="button"><span
-            class="button-82-shadow"></span><span class="button-82-edge"></span><span
-            class="button-82-front text">RPG</span></button>
-        <button @click="getGamesByGenres('sports')" class="button-82-pushable" role="button"><span
-            class="button-82-shadow"></span><span class="button-82-edge"></span><span
-            class="button-82-front text">Sports</span></button>
-        <button @click="getGamesByGenres('fighting')" class="button-82-pushable" role="button"><span
-            class="button-82-shadow"></span><span class="button-82-edge"></span><span
-            class="button-82-front text">Fighting</span></button>
+    <section class="row p-3 mx-2 my-2 justify-content-around">
 
-        <!-- <button @click="getGames()" class="col-1  btn bg-light fw-bold">All</button>
+      <button @click="getGames()" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">All</span></button>
+      <button @click="getGamesByGenres('shooter')" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">FPS</span></button>
+      <button @click="getGamesByGenres('strategy')" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">Strategy</span></button>
+      <button @click="getGamesByGenres('role-playing-games-rpg')" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">RPG</span></button>
+      <button @click="getGamesByGenres('sports')" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">Sports</span></button>
+      <!-- <button @click="getGamesByGenres('fighting')" class="button-82-pushable col-2" role="button"><span
+          class="button-82-shadow "></span><span class="button-82-edge"></span><span
+          class="button-82-front text">Fighting</span></button> -->
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Separated link</a></li>
+      </ul>
+
+      <!-- <button @click="getGames()" class="col-1  btn bg-light fw-bold">All</button>
         <button @click="getGamesByGenres('shooter')" class="col-1  btn btn-primary fw-bold">FPS</button>
         <button @click="getGamesByGenres('strategy')" class="col-1  btn btn-primary fw-bold">Strategy</button>
         <button @click="getGamesByGenres('role-playing-games-rpg')" class="col-1  btn btn-primary fw-bold">RPG</button>
         <button @click="getGamesByGenres('sports')" class="col-1  btn btn-primary fw-bold">Sports</button>
         <button @click="getGamesByGenres('fighting')" class="col-1  btn btn-primary fw-bold">Fighting</button> -->
-      </div>
+
     </section>
     <Suspense>
       <section class="l-container">
@@ -263,7 +272,7 @@ export default {
 }
 
 .carousel-img {
-  height: 35vh;
+  height: 45vh;
   width: 100%;
 }
 
@@ -317,7 +326,7 @@ export default {
 .button-82-front {
   display: block;
   position: relative;
-  padding: 12px 27px;
+  padding: 10px 15px;
   border-radius: 12px;
   font-size: 1.1rem;
   color: rgb(255, 255, 255);
@@ -329,12 +338,7 @@ export default {
     transform 600ms cubic-bezier(.3, .7, .4, 1);
 }
 
-@media (min-width: 768px) {
-  .button-82-front {
-    font-size: 1.25rem;
-    padding: 12px 42px;
-  }
-}
+
 
 .button-82-pushable:hover {
   filter: brightness(110%);
@@ -369,6 +373,12 @@ export default {
 
 .top-games-carousel {
   min-height: 25vh;
+}
+
+@media (min-width: 425px) {
+  // .button-82-pushable {
+  //   padding: 10px 10px;
+  // }
 }
 </style>
 
