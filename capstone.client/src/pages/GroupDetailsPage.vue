@@ -75,7 +75,7 @@
                                 <p>{{ g.profile.name }}</p>
                             </div>
                         </div>
-                        <div class="back">
+                        <div class="bac">
                             <div class="inner">
                                 <p>{{ g.profile.bio ? g.profile.bio : 'User has no Bio' }}</p>
                             </div>
@@ -110,16 +110,16 @@
                 <button @click="leaveGroupChat" type="button" class="btn-close" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body comment-body">
+            <div class="offcanvas-body container comment-body">
                 <section class="row ">
                     <div v-for="c in comments">
                         <Comment :comment="c" />
                     </div>
-                    <div class="comment-footer ">
+                    <div class="comment-footer  p-0">
                         <form @submit.prevent="postComment()" class="row">
-                            <div class="col-10">
-                                <textarea class="form-control m-0" v-model="editable.description" name="Chat...." id=""
-                                    cols="10" rows="1"></textarea>
+                            <div class="col-9">
+                                <textarea @keydown.enter.prevent="postComment()" class="form-control m-0"
+                                    v-model="editable.description" name="Chat...." id="" cols="10" rows="1"></textarea>
                             </div>
                             <div class="col-1">
                                 <button class="btn btn-primary">
@@ -276,6 +276,8 @@ export default {
                 try {
                     await commentsService.postComment(editable.value, route.params.id)
                     editable.value = {}
+                    Pop.success("Comment Posted");
+
                 } catch (error) {
                     Pop.error(('[ERROR]'), error.message)
                 }

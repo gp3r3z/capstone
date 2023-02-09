@@ -6,9 +6,9 @@ export const GroupCommentSchema = new Schema({
     creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     description: { type: String, required: true },
 
-})
+}, { timestamps: true, toJSON: { virtuals: true } })
 
-GroupCommentSchema.virtual('profile', {
+GroupCommentSchema.virtual('creator', {
     localField: 'creatorId',
     ref: 'Account',
     foreignField: '_id',

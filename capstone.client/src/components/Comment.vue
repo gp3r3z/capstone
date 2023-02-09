@@ -9,7 +9,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-3 filter-row ">
-                <img :src="account.picture" class="img-fluid rounded-circle" alt="">
+                <img :src="comment.creator.picture" class="img-fluid rounded-circle" alt="">
             </div>
         </div>
 
@@ -20,7 +20,7 @@
         </div>
         <div class="row justify-content-start">
             <div class="col-3 filter-row ">
-                <img src="https://thiscatdoesnotexist.com" class="img-fluid rounded-circle" alt="">
+                <img :src="comment.creator.picture" class="img-fluid rounded-circle" alt="">
             </div>
         </div>
     </div>
