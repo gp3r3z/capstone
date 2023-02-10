@@ -10,7 +10,7 @@
                 </button>
                 <div class="col-12">
                     <h3>Title: {{ event.title }}</h3>
-                    <h5>StartTime: {{ event.startTime }}</h5>
+                    <h5>StartTime: {{ new Date(event.startTime).toDateString() }}</h5>
                     <h5>Capacity: {{ event.capacity }}</h5>
                     <h5>Checking to see if i'm a group member {{ groupMembers.some(gm => gm.accountId === account.id) }}
                     </h5>

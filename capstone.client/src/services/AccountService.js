@@ -15,22 +15,14 @@ class AccountService {
   }
 
   async getMyGroups() {
-    try {
-      const res = await api.get('/account/getMyGroups')
-      AppState.myGroups = res.data
-      logger.log('Getting MyGroups ', res.data)
-    } catch (err) {
-      logger.error('Error Getting MyGroups', err)
-    }
+    const res = await api.get('/account/getMyGroups')
+    AppState.myGroups = res.data
+    logger.log('Getting MyGroups ', res.data)
   }
   async getMyEvents() {
-    try {
-      const res = await api.get('/account/getMyEvents')
-      AppState.myEvents = res.data
-      logger.log('Getting myEvents ', res.data)
-    } catch (err) {
-      logger.error('Error Getting myEvents', err)
-    }
+    const res = await api.get('/account/getMyEvents')
+    AppState.myEvents = res.data
+    logger.log('Getting myEvents ', res.data)
   }
 
   async editAccount(body) {
