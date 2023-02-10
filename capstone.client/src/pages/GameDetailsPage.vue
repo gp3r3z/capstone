@@ -40,6 +40,11 @@
         </section> -->
         <section>
             <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-8 bg-light rounded elevation-5 mt-4">
+                        <h2 class="text-center">Groups</h2>
+                    </div>
+                </div>
                 <section class="row justify-content-around">
                     <div class="col-4 mt-3" v-for="g in groups">
                         <GroupCard :group="g" />

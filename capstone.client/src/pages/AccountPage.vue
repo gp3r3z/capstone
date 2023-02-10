@@ -65,10 +65,19 @@
 
     </div>
 
-    <section class="row mt-3">
-      <h3 class="border-bottom text-center">MyGroups</h3>
-      <div v-for="g in myGroups" class="bg-danger">
-        <GroupCard :group="g" />
+    <section>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-8 bg-light rounded elevation-5 mt-4">
+            <h2 class="text-center">Groups</h2>
+          </div>
+        </div>
+        <section class="row justify-content-around">
+          <div class="col-4 mt-3" v-for="g in myGroups">
+            <GroupCard :group="g" />
+          </div>
+        </section>
+
       </div>
     </section>
     <section class="row mt-3">
