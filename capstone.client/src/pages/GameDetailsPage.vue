@@ -26,21 +26,29 @@
             </div>
 
         </section>
-        <!-- SECTION GameGroups Details Row Header  -->
 
-        <section class="row justify-content-center">
+        <!-- SECTION GROUPS FOR GAME -->
+        <!-- <section class="row justify-content-center">
             <div class="col-8 bg-light rounded elevation-5 mt-4">
                 <h2 class="text-center">Groups</h2>
             </div>
             <div class="row mt-3 justify-content-center">
-                <!-- SECTION GROUPS FOR GAME -->
                 <div v-for="g in groups" class="col-8">
                     <GroupCard :group="g" />
                 </div>
             </div>
+        </section> -->
+        <section>
+            <div class="container">
+                <section class="row justify-content-around">
+                    <div class="col-4 mt-3" v-for="g in groups">
+                        <GroupCard :group="g" />
+                    </div>
+                </section>
 
-
+            </div>
         </section>
+        <!-- SECTION create group  -->
         <section class="row">
             <button href="#"
                 class="float-right btn rounded-circle bg-dark d-flex justify-content-center align-items-center"
@@ -96,7 +104,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .game-img {
     height: 55vh;
     width: 87vh;
@@ -113,13 +121,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.432);
     backdrop-filter: blur(10px);
 }
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
-
 
 .float-right {
     position: fixed;
@@ -149,5 +150,21 @@ export default {
 
 .my-float {
     margin-top: 22px;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #131313;
+}
+
+.container {
+    position: relative;
 }
 </style>

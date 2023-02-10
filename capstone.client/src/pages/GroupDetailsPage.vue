@@ -158,8 +158,6 @@ import { commentsService } from '../services/CommentsService.js'
 import Comment from '../components/Comment.vue';
 import GroupEvent from '../components/GroupEvent.vue';
 import { GroupHandler } from '../handler/GroupHandler.js';
-import { accountService } from '../services/AccountService.js';
-
 
 export default {
     setup() {
@@ -620,5 +618,31 @@ export default {
         width: 100%;
         margin: 0 0 2rem 0;
     }
+}
+
+.float-right {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #0C9;
+    color: #AECBCF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #AECBCF;
+}
+
+.float-left {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    margin-left: 20px;
+    background-color: #0C9;
+    color: #AECBCF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #AECBCF;
 }
 </style>

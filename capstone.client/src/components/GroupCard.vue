@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'GroupDetails', params: { id: group.id } }" class="selectable">
+    <!-- <router-link :to="{ name: 'GroupDetails', params: { id: group.id } }" class="selectable">
         <div class="row bg-light p-3 rounded elevation-5 mt-3">
             <div class="col-3">
                 <img class="img-fluid" :src="group.coverImg" />
@@ -11,34 +11,26 @@
                 <p>SkillLevel: {{ group.skillLevel }}</p>
             </div>
         </div>
-    </router-link>
-
-
-    <!-- FIXME different set of cards below https://codepen.io/seyedi/pen/zYoeLEv -->
-
-    <!-- <ul class="cards">
-        <li>
-            <a href="" class="card">
-                <img :src="group.coverImg" class="card__image" alt="" />
-                <div class="card__overlay">
-                    <div class="card__header">
-                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
-                            <path />
-                        </svg>
-                        <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
-                        <div class="card__header-text">
-                            <h2>{{ group.groupName }}</h2>
-                            <span class="card__status">
-                                Skill Level: {{ group.skillLevel }}
-                            </span>
-                        </div>
+    </router-link> -->
+    <div class="card">
+        <div class="imgBx">
+            <img :src="group.coverImg">
+        </div>
+        <div class="contentBx">
+            <h2 class="mt-2">{{ group.groupName }}</h2>
+            <div class="size mt-3">
+                <p>Capacity: {{ group.capacity }}</p>
+                <p class="ms-3">SkillLevel: {{ group.skillLevel }}</p>
+            </div>
+            <router-link :to="{ name: 'GroupDetails', params: { id: group.id } }">
+                <div class="row justify-content-center">
+                    <div class="col-5  rounded">
+                        <button class="btn btn-dark mt-3 text-white">See Details</button>
                     </div>
-                    <p class="card__description">{{ group.description }}</p>
                 </div>
-            </a>
-        </li>
-
-    </ul> -->
+            </router-link>
+        </div>
+    </div>
 
 </template>
 
@@ -59,123 +51,149 @@ export default {
 
 
 <style lang="scss" scoped>
-:root {
-    --surface-color: #fff;
-    --curve: 40;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #fef8f8;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 4rem 5vw;
-    padding: 0;
-    list-style-type: none;
-}
-
-.card {
+.container .card {
     position: relative;
-    display: block;
-    height: 100%;
-    border-radius: calc(var(--curve) * 1px);
+    height: 450px;
+    background: rgba(59, 67, 113, 0.5215686275);
+    border-radius: 20px;
     overflow: hidden;
-    text-decoration: none;
 }
 
-.card__image {
+.container .card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    background: rgba(203, 207, 231, 0.926);
+    clip-path: circle(150px at 80% 20%);
+    transition: 0.5s ease-in-out;
 }
 
-.card__overlay {
+.container .card:hover:before {
+    clip-path: circle(300px at 80% -20%);
+}
+
+
+// .container .card:after {
+//     content: 'Group';
+//     position: absolute;
+//     top: 30%;
+//     left: -20%;
+//     font-size: 12em;
+//     font-weight: 800;
+//     font-style: italic;
+//     color: rgba(255, 255, 25, 0.05)
+// }
+
+.container .card .imgBx {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000;
+    width: 100%;
+    height: 220px;
+    transition: 0.5s;
+}
+
+.container .card:hover .imgBx {
+    top: 0%;
+    transform: translateY(0%);
+
+}
+
+.container .card .imgBx img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 270px;
+}
+
+.container .card .contentBx {
     position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    border-radius: calc(var(--curve) * 1px);
-    background-color: var(--surface-color);
-    transform: translateY(100%);
-    transition: .2s ease-in-out;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    transition: 1s;
+    z-index: 10;
 }
 
-.card:hover .card__overlay {
-    transform: translateY(0);
+.container .card:hover .contentBx {
+    height: 210px;
 }
 
-.card__header {
+.container .card .contentBx h2 {
     position: relative;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.container .card .contentBx .size,
+.container .card .contentBx .color {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 2em;
-    padding: 2em;
-    border-radius: calc(var(--curve) * 1px) 0 0 0;
-    background-color: var(--surface-color);
-    transform: translateY(-100%);
-    transition: .2s ease-in-out;
+    padding: 8px 20px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: white;
 }
 
-.card__arc {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    z-index: 1;
+.container .card:hover .contentBx .size {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.5s;
 }
 
-.card__arc path {
-    fill: var(--surface-color);
-    d: path("M 40 80 c 22 0 40 -22 40 -40 v 40 Z");
+.container .card:hover .contentBx .color {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.6s;
 }
 
-.card:hover .card__header {
-    transform: translateY(0);
+.container .card .contentBx .size h3,
+.container .card .contentBx .color h3 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 10px;
 }
 
-.card__thumb {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
+.container .card .contentBx .size span {
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 14px;
+    display: inline-block;
+    color: #111;
+    background: #fff;
+    margin: 0 5px;
+    transition: 0.5s;
+    color: #111;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container .card .contentBx .size span:hover {
+    background: #9bdc28;
+}
+
+.container .card .contentBx .color span {
+    width: 20px;
+    height: 20px;
+    background: #ff0;
     border-radius: 50%;
-}
-
-.card__title {
-    font-size: 1em;
-    margin: 0 0 .3em;
-    color: #6A515E;
-}
-
-.card__tagline {
-    display: block;
-    margin: 1em 0;
-    font-family: "MockFlowFont";
-    font-size: .8em;
-    color: #D7BDCA;
-}
-
-.card__status {
-    font-size: .8em;
-    color: #D7BDCA;
-}
-
-.card__description {
-    padding: 0 2em 2em;
-    margin: 0;
-    color: #D7BDCA;
-    font-family: "MockFlowFont";
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+    margin: 0 5px;
+    cursor: pointer;
 }
 </style>
