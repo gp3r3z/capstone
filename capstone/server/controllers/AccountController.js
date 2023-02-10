@@ -9,7 +9,7 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
-      .get('/:id', this.getCreator)
+      .get('/:id/creator', this.getCreator)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/getMyEvents', this.getMyEventsByCreatorId)
@@ -46,7 +46,7 @@ export class AccountController extends BaseController {
   }
   async getMyGroupsByCreatorId(req, res, next) {
     try {
-
+      logger.log('[server get my groups]')
       const account = await groupsService.getMyGroupsByCreatorId(req.userInfo.id)
       res.send(account)
     } catch (error) {

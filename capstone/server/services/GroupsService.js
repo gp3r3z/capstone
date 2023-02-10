@@ -87,8 +87,9 @@ class GroupsService {
         logger.log(getGroupMembers)
         return getGroupMembers
     }
-    async getMyGroupsByCreatorId(id) {
-        const myGroup = await dbContext.Group.find({ creatorId: id })
+    async getMyGroupsByCreatorId(creatorId) {
+        logger.log('[SERVER ] here are my groups ', creatorId)
+        const myGroup = await dbContext.Group.find({ creatorId })
         logger.log('Attempting to getMyGroupsByCreatorId', myGroup)
         return myGroup
     }
