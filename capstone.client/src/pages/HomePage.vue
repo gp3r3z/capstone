@@ -36,24 +36,26 @@
         </div>
       </div>
     </div>
-
-    <section class="row justify-content-center m-3">
-      <div class="col-2 rounded bg-dark d-flex align-items-center">
-        <button @click="searchGamesToggle(searchToggle)" class="btn"><i class="mdi mdi-magnify fs-1"></i></button>
-        <h3>Search</h3>
+    <!-- SECTION SEARCH  -->
+    <section class="row text-center justify-content-center m-3">
+      <div class="col-5 rounded ">
+        <button @click="searchGamesToggle(searchToggle)" class="button-82-pushable mt-3 " role="button"><span
+            class="button-82-shadow"></span><span class="button-82-edge"></span><span
+            class="button-82-front text mdi mdi-magnify">Search</span></button>
       </div>
       <div v-if="searchToggle" class="col-12">
         <form @submit.prevent="searchQuery(searchResults)" class="row justify-content-center mt-3">
-          <input v-model="searchResults" type="text" placeholder="Search by Game Name" class=" col-4"
-            aria-label="Default" aria-describedby="inputGroup-sizing-default" minlength="3">
-          <div class="input-group-append  text-center">
-            <button class="button-82-pushable mt-3 " role="button"><span class="button-82-shadow"></span><span
-                class="button-82-edge"></span><span class="button-82-front text">Search</span></button>
+
+          <div class="row justify-content-center input-group-append text-center">
+            <div class="col-4">
+              <input v-model="searchResults" type="text" placeholder="Search by Game Name" class="form-control"
+                aria-label="Default" aria-describedby="inputGroup-sizing-default" minlength="3" required>
+            </div>
+            <button class="button-82-pushable ms-3 col-3" role="button"><span class="button-82-shadow"></span><span
+                class="button-82-edge"></span><span class="button-82-front text">Update Results</span></button>
           </div>
         </form>
       </div>
-
-
 
     </section>
     <div class="row justify-content-center mt-2">

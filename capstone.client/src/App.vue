@@ -51,7 +51,7 @@ export default {
   background-attachment: fixed;
   background-size: cover;
   background-color: #FFFFFF;
-  background-image: linear-gradient(180deg, #FFFFFF 0%, #fa0707 40%, #3B4371 100%);
+  background-image: linear-gradient(#fa0707 75%, #3B4371 100%);
 }
 
 .main-color {
